@@ -17,7 +17,7 @@ public class Main {
     }
 
     private static void createAndShowGUI() {
-        // Création de la fenêtre principale
+        // Création de la fenêtre principale.
         SFrame frame = new SFrame("Test SComponents", 400, 300);
 
         // Création et ajout des composants stylisés

@@ -93,7 +93,7 @@ public class DeliveryMan {
         return result;
     }
 
-    //######## REST_TIME DELIVERY ########
+    //######## REST_TIME DELIVERY #########
     public ArrayList<GPS> RestTimeDelivery(ArrayList<Pizza> pizzas, GPS position) {
         ArrayList<Pizza> copie = new ArrayList<>(pizzas);
         ArrayList<GPS> result = new ArrayList<>();

@@ -5,7 +5,7 @@ import model.*;
 
 public class testMainDist {
     public static void main(String[] args) {
-        // Create a list of delivery addresses.
+        // Create a list of delivery addresses..
         GPS Samuel = new GPS(48.795385, 2.152272);
         GPS Pierre1 = new GPS(48.745385, 2.117144);
         GPS Pierre2 = new GPS(48.745385, 2.117145);
