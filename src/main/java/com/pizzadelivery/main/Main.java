@@ -1,10 +1,11 @@
-import style.SButton;
-import style.SButton.ButtonType;
-import style.SFrame;
-import style.SLabel;
-import style.SPanel;
-import utils.ImageLoader;
-import utils.ImageResizer;
+package com.pizzadelivery.main;
+
+import com.pizzadelivery.style.SButton;
+import com.pizzadelivery.style.SFrame;
+import com.pizzadelivery.style.SLabel;
+import com.pizzadelivery.style.SPanel;
+import com.pizzadelivery.utils.ImageLoader;
+import com.pizzadelivery.utils.ImageResizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,9 +26,9 @@ public class Main {
         contentPanel.setLayout(new FlowLayout());
 
         // Test SButton
-        SButton primaryButton = new SButton("Primary", ButtonType.PRIMARY);
-        SButton secondaryButton = new SButton("Secondary", ButtonType.SECONDARY);
-        SButton errorButton = new SButton("Error", ButtonType.ERROR);
+        SButton primaryButton = new SButton("Primary", SButton.ButtonType.PRIMARY);
+        SButton secondaryButton = new SButton("Secondary", SButton.ButtonType.SECONDARY);
+        SButton errorButton = new SButton("Error", SButton.ButtonType.ERROR);
 
         // Test SLabel
         SLabel label = new SLabel("Test Label", SLabel.FontStyle.TITLE);

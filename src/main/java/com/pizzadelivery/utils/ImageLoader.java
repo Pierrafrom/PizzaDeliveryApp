@@ -1,4 +1,4 @@
-package utils;
+package com.pizzadelivery.utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +11,11 @@ import java.net.URL;
  */
 public class ImageLoader {
     // Path to the directory where image files are stored
-    private static final String IMAGES_DIRECTORY = "/ressources/img/";
+    private static final String IMAGES_DIRECTORY = "/img/";
 
     /**
      * Loads an image from the specified file name within the image directory.
-     * The image file should be located in the resources/images directory of the project.
+     * The image file should be located in the src/main/resources/img directory of the project.
      *
      * @param imageFileName The name of the image file (e.g., "MyImage.png")
      * @return The loaded Image object, or null if the image could not be loaded
@@ -28,7 +28,7 @@ public class ImageLoader {
             }
             return Toolkit.getDefaultToolkit().getImage(imageUrl);
         } catch (IOException e) {
-            System.err.println("Error reading image file: " + e.getMessage());
+            System.err.println("Could not load image " + imageFileName + ": " + e.getMessage());
             return null;
         }
     }
