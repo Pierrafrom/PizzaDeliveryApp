@@ -1,4 +1,4 @@
-package style;
+package com.pizzadelivery.style;
 
 import javax.swing.*;
 import java.awt.*;

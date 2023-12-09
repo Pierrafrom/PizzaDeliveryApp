@@ -1,6 +1,6 @@
-package style;
+package com.pizzadelivery.style;
 
-import utils.FontLoader;
+import com.pizzadelivery.utils.FontLoader;
 
 import java.awt.*;
 
@@ -51,6 +51,11 @@ public interface Style {
      * Secondary hover color, a darker shade of the secondary color.
      */
     Color SECONDARY_HOVER_COLOR = Color.decode("#811d23");
+
+    /**
+     * Neutral hover color, a darker shade of the neutral color.
+     */
+    Color NEUTRAL_HOVER_COLOR = Color.decode("#6d6473");
 
     // Additional colors
     /**

@@ -1,4 +1,4 @@
-package style;
+package com.pizzadelivery.style;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,7 +18,7 @@ public class SButton extends JButton {
      * Enum for different button types supported by SButton.
      */
     public enum ButtonType {
-        PRIMARY, SECONDARY, ERROR
+        PRIMARY, SECONDARY, ERROR, NEUTRAL
     }
 
     /**
@@ -56,7 +56,7 @@ public class SButton extends JButton {
         setFocusPainted(false);
         setContentAreaFilled(false);
         setOpaque(true);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         Color borderColor;
         switch (type) {
@@ -68,12 +68,17 @@ public class SButton extends JButton {
             case SECONDARY:
                 setBackground(Style.TEXT_COLOR);
                 setForeground(Style.PRIMARY_COLOR);
-                borderColor = Style.PRIMARY_COLOR; // Ou une autre couleur si nécessaire
+                borderColor = Style.PRIMARY_COLOR;
                 break;
             case ERROR:
                 setBackground(Style.SECONDARY_COLOR);
                 setForeground(Style.TEXT_COLOR);
                 borderColor = Style.SECONDARY_COLOR;
+                break;
+            case NEUTRAL:
+                setBackground(Style.NEUTRAL_COLOR);
+                setForeground(Style.TEXT_COLOR);
+                borderColor = Style.NEUTRAL_COLOR;
                 break;
             default:
                 borderColor = Style.PRIMARY_COLOR;
@@ -105,6 +110,10 @@ public class SButton extends JButton {
                     case ERROR -> {
                         setBackground(Style.SECONDARY_HOVER_COLOR);
                         yield Style.SECONDARY_HOVER_COLOR;
+                    }
+                    case NEUTRAL -> {
+                        setBackground(Style.NEUTRAL_HOVER_COLOR);
+                        yield Style.NEUTRAL_HOVER_COLOR;
                     }
                 };
 
