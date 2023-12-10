@@ -8,7 +8,6 @@ package com.pizzadelivery.utils;
 public class List<Type> {
     private Type head;
     private List<Type> rest;
-    private int size;
     private final int maxSize;
 
     /**
@@ -22,7 +21,6 @@ public class List<Type> {
     public List(Type e, List<Type> l, int maxSize) {
         this.head = e;
         this.rest = l;
-        this.size = 1;
         this.maxSize = maxSize;
     }
 
@@ -87,7 +85,16 @@ public class List<Type> {
      * @return The length of the list.
      */
     public int length() {
-        return this.size;
+        try {
+            getHead();
+        } catch (NullPointerException e) {
+            return 0;
+        }
+        try {
+            return 1 + this.getRest().length();
+        } catch (NullPointerException e) {
+            return 1;
+        }
     }
 
     /**
@@ -122,18 +129,92 @@ public class List<Type> {
     }
 
     /**
+     * Returns a string representation of the list.
+     * Each element of the list is represented in the format 'head={headValue}, rest={restValue}'.
+     *
+     * @return A string representation of the list.
+     */
+    public String toString() {
+        return "List{" +
+                "head=" + head + ", " +
+                "rest=" + rest +
+                "}";
+    }
+
+    /**
      * Removes the element at the specified index from the list.
+     * If the index is 0, it removes the head of the list and sets the next element as the new head.
+     * For other indices, it traverses the list to find the element at that index and removes it.
      *
      * @param index The index of the element to remove.
+     * @throws IndexOutOfBoundsException if the index is out of bounds of the list size.
      */
     public void remove(int index) {
-        if (index == 0) {
-            this.setHead(this.getRest().getHead());
-            this.setRest(this.getRest().getRest());
-        } else {
-            this.getRest().remove(index - 1);
+        if (index < 0 || index >= this.length()) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
         }
-        this.size--;
+
+        if (index == 0) {
+            try {
+                this.setHead(this.getRest().getHead());
+                this.setRest(this.getRest().getRest());
+            } catch (NullPointerException ex) {
+                this.setHead(null);
+                this.setRest(null);
+            }
+        } else {
+            List<Type> current = this;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.getRest();
+            }
+            try {
+                current.setRest(current.getRest().getRest());
+            } catch (NullPointerException ex) {
+                current.setRest(null);
+            }
+        }
+    }
+
+    /**
+     * Removes the specified element from the list.
+     * If the element to remove is the head, it sets the next element as the new head.
+     * If not, it searches for the element in the list and removes it.
+     *
+     * @param e The element to remove from the list.
+     * @throws NullPointerException if the list is empty or the element is not found.
+     */
+    public void remove(Type e) {
+        try {
+            if (this.getHead().equals(e)) {
+                this.setHead(this.getRest().getHead());
+                this.setRest(this.getRest().getRest());
+            } else {
+                removeElementRecursively(this, e);
+            }
+        } catch (NullPointerException ex) {
+            this.setHead(null);
+            this.setRest(null);
+        }
+    }
+
+    /**
+     * Helper method to remove a specified element from the list recursively.
+     * This method is called by the public remove(Type e) method and should not be called directly.
+     *
+     * @param current The current list node being examined.
+     * @param e       The element to remove from the list.
+     * @throws NullPointerException if the element is not found in the list.
+     */
+    private void removeElementRecursively(List<Type> current, Type e) {
+        try {
+            if (current.getRest().getHead().equals(e)) {
+                current.setRest(current.getRest().getRest());
+            } else {
+                removeElementRecursively(current.getRest(), e);
+            }
+        } catch (NullPointerException ex) {
+            current.setRest(null);
+        }
     }
 
     /**
@@ -141,20 +222,52 @@ public class List<Type> {
      *
      * @param index The index at which to insert the element.
      * @param e     The element to insert.
+     * @throws IndexOutOfBoundsException if the index is out of bounds.
+     * @throws IllegalStateException     if the list size exceeds the maximum limit.
      */
     public void add(int index, Type e) {
-        if (this.length() < this.maxSize()) {
-            if (index == 0) {
-                List<Type> newRest = new List<>(this.getHead(), this.getRest());
-                this.setHead(e);
-                this.setRest(newRest);
-            } else {
-                this.getRest().add(index - 1, e);
+        if (this.length() <= this.maxSize()) {
+            try {
+                if (index == 0) {
+                    // Creating a new rest of the list and updating the head
+                    List<Type> newRest = new List<>(this.getHead(), this.getRest(), this.maxSize());
+                    this.setHead(e);
+                    this.setRest(newRest);
+                } else {
+                    // Recursive call to add at the correct index if rest is not null
+                    this.getRest().add(index - 1, e);
+                }
+            } catch (NullPointerException ex) {
+                if (index == 0) {
+                    // If the rest is null and index is 0, simply add the element at the head
+                    this.setHead(e);
+                    this.setRest(new List<>(null, null, this.maxSize()));
+                } else if (index == 1) {
+                    // If the rest is null but index is 1, add the element as the new rest
+                    this.setRest(new List<>(e, null, this.maxSize()));
+                } else {
+                    // If index is invalid (greater than 1 and the rest is null), throw an IndexOutOfBoundsException
+                    throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for list of size " + this.length());
+                }
             }
-            this.size++;
         } else {
             throw new IllegalStateException("List size exceeds the maximum limit.");
         }
+    }
+
+    /**
+     * Adds an element to the end of the list.
+     *
+     * @param e The element to add to the list.
+     */
+    public void add(Type e) {
+        try {
+            this.getHead();
+        } catch (NullPointerException ex) {
+            this.setHead(e);
+            return;
+        }
+        this.add(this.length(), e);
     }
 
     /**

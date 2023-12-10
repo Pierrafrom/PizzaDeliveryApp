@@ -118,11 +118,8 @@ public record GPS(double latitude, double longitude) {
             if (!routes.isEmpty()) {
                 JSONObject firstRoute = routes.getJSONObject(0);
                 JSONObject summary = firstRoute.getJSONObject("summary");
-                double duration = summary.getDouble("duration");
 
-                // Print and return the estimated duration
-                System.out.println("Estimated Duration (seconds): " + duration);
-                return duration;
+                return summary.getDouble("duration");
             }
         } catch (Exception e) {
             // Log exceptions
