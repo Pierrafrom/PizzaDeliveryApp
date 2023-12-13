@@ -24,13 +24,26 @@ public class DatabaseManager {
      * query executes safely.
      *
      * @param sqlQuery The SQL query to be executed.
+     * @param type     The type of query to be executed. 0 for a simple statement, 1 for a prepared statement.
      * @return A ResultSet object containing the data produced by the given query; never null.
      * @throws SQLException If there is a problem executing the query.
      */
-    public static ResultSet executeQuery(String sqlQuery) throws SQLException {
+    public static ResultSet sendQuery(String sqlQuery, int type) throws SQLException {
         Connection connection = getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        return preparedStatement.executeQuery();
+        try {
+            if (type == 0) {
+                Statement statement = connection.createStatement();
+                return statement.executeQuery(sqlQuery);
+            } else {
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
+                return preparedStatement.executeQuery();
+            }
+        } catch (SQLException e) {
+            System.out.println("Problème lors de l'exécution de la requete : " + sqlQuery);
+            throw e;
+        }
     }
 
     /**
@@ -55,7 +68,12 @@ public class DatabaseManager {
         // Adjust the column widths based on the width of the data in each column
         while (resultSet.next()) {
             for (int i = 1; i <= columnCount; i++) {
-                int dataLength = resultSet.getString(i).length();
+                int dataLength = 0;
+                if (resultSet.getString(i) == null) {
+                    dataLength = 4; // "null" is 4 characters long
+                } else {
+                    dataLength = resultSet.getString(i).length();
+                }
                 if (dataLength > columnWidths[i - 1]) {
                     columnWidths[i - 1] = dataLength; // Update column width if data is wider
                 }
@@ -92,7 +110,7 @@ public class DatabaseManager {
 
     public static void main(String[] args) {
         try {
-            printFormattedResults(executeQuery("SELECT * FROM WINE"));
+            printFormattedResults(sendQuery("SELECT * FROM VIEW_ORDER_SUMMARY", 1));
         } catch (SQLException e) {
             Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
             logger.error("SQL Exception occurred", e);
