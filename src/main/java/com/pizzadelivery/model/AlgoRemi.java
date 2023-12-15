@@ -23,6 +23,11 @@ public class AlgoRemi {
     }
 
     private ArrayList<GPS> bestDeliveryRecursive(List<Order> orders, GPS position, double elapsedTime, ArrayList<Integer> note) {
+        /*
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Il faut mettre les éléments de la liste de Pierre dans la l'ArrayList que j'utilise ici (il faut ## Cast ##)
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        */
         if (orders.isEmpty()) {
             return new ArrayList<>(); // no more pizzas to deliver
         }
