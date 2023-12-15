@@ -35,6 +35,10 @@ public class List<Type> {
         this(e, l, Integer.MAX_VALUE);
     }
 
+    public List() {
+        this(null, null, Integer.MAX_VALUE);
+    }
+
     /**
      * Returns the rest of the list.
      *
@@ -128,6 +132,14 @@ public class List<Type> {
         }
     }
 
+    public void set(int index, Type element) {
+        if (index == 0) {
+            this.setHead(element);
+        } else {
+            this.getRest().set(index - 1, element);
+        }
+    }
+
     /**
      * Returns a string representation of the list.
      * Each element of the list is represented in the format 'head={headValue}, rest={restValue}'.
@@ -147,15 +159,19 @@ public class List<Type> {
      * For other indices, it traverses the list to find the element at that index and removes it.
      *
      * @param index The index of the element to remove.
+     * @return The element that has been removed.
      * @throws IndexOutOfBoundsException if the index is out of bounds of the list size.
      */
-    public void remove(int index) {
+    public Type remove(int index) {
         if (index < 0 || index >= this.length()) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
 
+        Type removedElement = null;
+
         if (index == 0) {
             try {
+                removedElement = this.getHead();
                 this.setHead(this.getRest().getHead());
                 this.setRest(this.getRest().getRest());
             } catch (NullPointerException ex) {
@@ -168,11 +184,14 @@ public class List<Type> {
                 current = current.getRest();
             }
             try {
+                removedElement = current.getRest().getHead();
                 current.setRest(current.getRest().getRest());
             } catch (NullPointerException ex) {
                 current.setRest(null);
             }
         }
+
+        return removedElement;
     }
 
     /**
@@ -181,20 +200,26 @@ public class List<Type> {
      * If not, it searches for the element in the list and removes it.
      *
      * @param e The element to remove from the list.
+     * @return The element that has been removed.
      * @throws NullPointerException if the list is empty or the element is not found.
      */
-    public void remove(Type e) {
+    public Type remove(Type e) {
+        Type removedElement = null;
+
         try {
             if (this.getHead().equals(e)) {
+                removedElement = this.getHead();
                 this.setHead(this.getRest().getHead());
                 this.setRest(this.getRest().getRest());
             } else {
-                removeElementRecursively(this, e);
+                removedElement = removeElementRecursively(this, e);
             }
         } catch (NullPointerException ex) {
             this.setHead(null);
             this.setRest(null);
         }
+
+        return removedElement;
     }
 
     /**
@@ -203,18 +228,24 @@ public class List<Type> {
      *
      * @param current The current list node being examined.
      * @param e       The element to remove from the list.
+     * @return The element that has been removed.
      * @throws NullPointerException if the element is not found in the list.
      */
-    private void removeElementRecursively(List<Type> current, Type e) {
+    private Type removeElementRecursively(List<Type> current, Type e) {
+        Type removedElement = null;
+
         try {
             if (current.getRest().getHead().equals(e)) {
+                removedElement = current.getRest().getHead();
                 current.setRest(current.getRest().getRest());
             } else {
-                removeElementRecursively(current.getRest(), e);
+                removedElement = removeElementRecursively(current.getRest(), e);
             }
         } catch (NullPointerException ex) {
             current.setRest(null);
         }
+
+        return removedElement;
     }
 
     /**
@@ -284,6 +315,75 @@ public class List<Type> {
                 return this.getRest().contains(e);
             } catch (NullPointerException ignored) {
                 return false;
+            }
+        }
+    }
+
+    /**
+     * Checks if the list is empty.
+     *
+     * @return True if the list is empty, false otherwise.
+     */
+    public boolean empty() {
+        return this.length() == 0;
+    }
+
+    /**
+     * Removes all elements from the list.
+     */
+    public void clear() {
+        this.setHead(null);
+        this.setRest(null);
+    }
+
+    /**
+     * Adds all elements from a list to the current list.
+     *
+     * @param list The list to add to the current list.
+     */
+    public void addAll(List<Type> list) {
+        for (int i = 0; i < list.length(); i++) {
+            this.add(list.get(i));
+        }
+    }
+
+    /**
+     * Returns a clone of the current list.
+     *
+     * @return A clone of the current list.
+     */
+    public List<Type> clone() {
+        List<Type> clone = new List<>(null, null, this.maxSize());
+        clone.addAll(this);
+        return clone;
+    }
+
+    public void generatePermutations(int index, List<List<Type>> permutations) {
+        if (index == this.length() - 1) {
+            permutations.add(this.clone());
+        } else {
+            for (int i = index; i < this.length(); i++) {
+                this.swap(index, i);
+                this.generatePermutations(index + 1, permutations);
+                this.swap(index, i); // Swap back for backtracking
+            }
+        }
+    }
+
+    private void swap(int indexOne, int indexTwo) {
+        Type temp = this.get(indexOne);
+        this.set(indexOne, this.get(indexTwo));
+        this.set(indexTwo, temp);
+    }
+
+    public int indexOf(Type order) {
+        if (this.getHead().equals(order)) {
+            return 0;
+        } else {
+            try {
+                return 1 + this.getRest().indexOf(order);
+            } catch (NullPointerException ex) {
+                return -1;
             }
         }
     }

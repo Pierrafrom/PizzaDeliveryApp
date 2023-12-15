@@ -12,23 +12,23 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-/**
- * A record that represents a geographic coordinate with a latitude and longitude.
- * This immutable data type is ideal for representing a point on the Earth's surface.
- *
- * @param latitude  The latitude of the GPS coordinate, in degrees.
- * @param longitude The longitude of the GPS coordinate, in degrees.
- */
-public record GPS(double latitude, double longitude) {
+public class GPS {
 
-    /**
-     * Calculates the distance in kilometers to another GPS coordinate using
-     * the Haversine formula.
-     *
-     * @param otherGPS The other GPS coordinate to which the distance is calculated.
-     * @return The distance in kilometers.
-     */
+    private static final Path FILE_PATH = Paths.get("src/main/resources/data/memoization_time_cache.txt");
+    private static final SaveableHashMap<String, Double> memoizationCacheTime = new SaveableHashMap<>(FILE_PATH);
+    private static final Object fileLock = new Object();
+
+    private final double latitude;
+    private final double longitude;
+
+    public GPS(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public double flightDistanceKM(GPS otherGPS) {
         // Earth's radius in kilometers
         double earthRadius = 6371;
@@ -53,16 +53,7 @@ public record GPS(double latitude, double longitude) {
         return earthRadius * c;
     }
 
-    /**
-     * Calls the OpenRouteService API to get the driving directions and estimated duration
-     * between two GPS locations.
-     *
-     * @param source      The starting GPS location.
-     * @param destination The destination GPS location.
-     * @return A string containing the API response in JSON format.
-     * @throws Exception If an error occurs during the API call.
-     */
-    private static String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
+    private String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
         // Set up the URL and open a connection
         URL url = new URL("https://api.openrouteservice.org/v2/directions/driving-car");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -96,18 +87,24 @@ public record GPS(double latitude, double longitude) {
                 response.append(responseLine.trim());
             }
         }
+        if (conn.getResponseCode() == 429) {
+            throw new RateLimitExceededException("API rate limit exceeded. Waiting before retrying...");
+        }
 
         return response.toString();
     }
 
-    /**
-     * Calculates the estimated time to travel between two GPS locations by car.
-     * The time is estimated using the OpenRouteService API.
-     *
-     * @param otherGPS The other GPS location to which the travel time is calculated.
-     * @return The estimated duration in seconds.
-     */
-    public double timeTravel(GPS otherGPS) {
+    public double timeTravel(GPS otherGPS) throws RateLimitExceededException {
+        String key = this + "|" + otherGPS;
+
+        synchronized (fileLock) {
+            if (memoizationCacheTime.containsKey(key)) {
+                return memoizationCacheTime.get(key);
+            }
+        }
+
+        System.out.println("timeTravel");
+
         try {
             // Call the API and parse the response
             String response = callOpenRouteServiceApi(this, otherGPS);
@@ -119,8 +116,16 @@ public record GPS(double latitude, double longitude) {
                 JSONObject firstRoute = routes.getJSONObject(0);
                 JSONObject summary = firstRoute.getJSONObject("summary");
 
-                return summary.getDouble("duration");
+                double duration = summary.getDouble("duration");
+
+                synchronized (fileLock) {
+                    memoizationCacheTime.put(key, duration);
+                }
+
+                return duration;
             }
+        } catch (RateLimitExceededException e) {
+            throw new RuntimeException(e);
         } catch (Exception e) {
             // Log exceptions
             Logger logger = LoggerFactory.getLogger(GPS.class);
@@ -129,24 +134,8 @@ public record GPS(double latitude, double longitude) {
         return 0;
     }
 
-    /**
-     * Returns a string representation of the GPS coordinate.
-     *
-     * @return A string representation of the GPS coordinate.
-     */
     @Override
     public String toString() {
         return String.format("GPS{latitude=%.6f, longitude=%.6f}", latitude, longitude);
-    }
-
-    /**
-     * A main method that demonstrates the use of the GPS class.
-     *
-     * @param args Command-line arguments (unused).
-     */
-    public static void main(String[] args) {
-        GPS paris = new GPS(48.8566, 2.3522);
-        GPS versailles = new GPS(48.8049, 2.1204);
-        System.out.println(paris.timeTravel(versailles));
     }
 }
