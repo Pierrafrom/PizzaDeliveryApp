@@ -29,14 +29,17 @@ public class GPS {
 
     public double calculateTravelTime(GPS destination) {
         // Implement the method to calculate travel time between two GPS points
+        return 0;
     }
 
     public double calculateDistance(GPS destination) {
         // Implement the method to calculate distance between two GPS points
+        return 0;
     }
 
     private double calculateCrowFliesDistance(GPS destination) {
         // Implement the method to calculate crow flies distance
+        return 0;
     }
 
     // Getters and setters
