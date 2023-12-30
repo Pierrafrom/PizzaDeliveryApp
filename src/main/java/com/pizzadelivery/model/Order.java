@@ -1,15 +1,16 @@
 package com.pizzadelivery.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
-public record Order(int id, GPS location, LocalDateTime dateTime) {
+public record Order(int id, GPS location, LocalDateTime orderDate) {
 
-    @Override
-    public String toString() {
-        return "\n\tOrder\n\t{" +
-                "\n\tid=" + id + ',' +
-                "\n\t location=" + location + ',' +
-                "\n\t dateTime=" + dateTime + ',' +
-                "\n\t}";
+    public static final int ORDER_MAX_WAIT = 30; // Exemple, veuillez ajuster selon vos besoins
+
+    public static int numberOfDiscount(ArrayList<Order> orders) {
+
+
+
+        return discountCount;
     }
 }
