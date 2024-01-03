@@ -204,27 +204,11 @@ public class GPS {
     }
 
     public double calculateCrowTravelTime(GPS destination) {
-        // Check if the travel time is already memoized
-        String memoizationKey = this + "|" + destination;
-        synchronized (fileLock) {
-            if (memoizationCacheTime.containsKey(memoizationKey)) {
-                return memoizationCacheTime.get(memoizationKey);
-            }
-        }
-
-        // If not memoized, calculate using the scooter speed
         double travelTime = 0.0;
-
         try {
             double distance = calculateCrowFliesDistance(destination);
-
             // Calculate travel time based on scooter speed
             travelTime = distance / SCOOTER_SPEED_KMH;
-
-            // Memoize the calculated travel time
-            synchronized (fileLock) {
-                memoizationCacheTime.put(memoizationKey, travelTime);
-            }
         } catch (Exception e) {
             // Log exceptions
             Logger logger = LoggerFactory.getLogger(GPS.class);
