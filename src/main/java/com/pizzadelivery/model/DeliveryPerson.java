@@ -9,7 +9,7 @@ public class DeliveryPerson {
     private final String name;
     private final String firstName;
     private boolean available;
-    private List<Order> orders;
+    private ArrayList<Order> orders;
 
     public DeliveryPerson(int id, String name, String firstName) {
         this.id = id;
@@ -49,7 +49,7 @@ public class DeliveryPerson {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
     }
 
