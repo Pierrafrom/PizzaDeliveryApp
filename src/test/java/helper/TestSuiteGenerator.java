@@ -89,4 +89,22 @@ public class TestSuiteGenerator {
             order.setTime(newOrderDate);
         }
     }
+
+    /*
+    generer les coordonnées GPS valide dans un fichier spécifique
+    le fichier se situe dans le dossier src/main/resources/test_suite/
+    et est un fichier .ser pour les objet sérialisé
+    le fichier s'appelle "correctGPS.ser"
+    au moment de charger un jeu de test, on regarde si le fichier existe et si il n'existe pas on le crée
+    on le charge ensuite et on regarde la taille de la liste
+    si la liste contient moins de 70 éléments, on dois la remplir avec des coordonnées GPS valide
+    tant que la liste n'est pas remplie (<70 éléments)
+    on génère des coordonnées GPS aleatoires
+    on test la coordonées pour savoir si elle est valide en faisant un apppel api
+    si elle est valide on l'ajoute à la liste et on la serialise dans le fichier
+    si elle n'est pas valide on ne l'ajoute pas à la liste et on recommence
+
+    il faut separer la logique de generation de coordonées gps , de l'api et de la serialisation dans des fonctions
+
+     */
 }

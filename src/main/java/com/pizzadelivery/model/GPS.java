@@ -38,12 +38,6 @@ public record GPS(double latitude, double longitude) implements Serializable {
         // Set up the URL and open a connection
         HttpURLConnection conn = getHttpURLConnection();
 
-        // Check if the API is in cooldown
-        if (conn.getResponseCode() == 429) {
-            startApiCooldown();
-            throw new IOException("API rate limit exceeded. Waiting before retrying...");
-        }
-
         // Create JSON payload with coordinates
         JSONObject jsonPayload = new JSONObject();
         jsonPayload.put("coordinates", new double[][]{
@@ -55,6 +49,20 @@ public record GPS(double latitude, double longitude) implements Serializable {
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonPayload.toString().getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
+            Logger logger = LoggerFactory.getLogger(GPS.class);
+            logger.info("Sent request to OpenRouteService API : " + jsonPayload.toString());
+        }
+
+        // Now check the response code
+        int responseCode = conn.getResponseCode();
+        if (responseCode == 429) {
+            startApiCooldown();
+            throw new IOException("API rate limit exceeded. Waiting before retrying...");
+        }
+
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            // throw an exception and the message from the API
+            throw new IOException("HTTP error code: " + responseCode + ", message: " + conn.getResponseMessage());
         }
 
         // Read and return response
@@ -81,11 +89,6 @@ public record GPS(double latitude, double longitude) implements Serializable {
         conn.setRequestProperty("Accept", "application/json");
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
-        if (conn.getResponseCode() != 200 && conn.getResponseCode() != 429) {
-            // throw the response code and the message to the exception
-            throw new IOException("Failed : HTTP error code : " + conn.getResponseCode()
-                    + ", message : " + conn.getResponseMessage());
-        }
         return conn;
     }
 
@@ -94,11 +97,10 @@ public record GPS(double latitude, double longitude) implements Serializable {
 
         synchronized (fileLock) {
             if (memoizationCacheTime.containsKey(key)) {
+                System.out.println("Memoized");
                 return memoizationCacheTime.get(key);
             }
         }
-
-        System.out.println("timeTravel");
 
         try {
             // Call the API and parse the response
@@ -120,9 +122,11 @@ public record GPS(double latitude, double longitude) implements Serializable {
                 return duration;
             }
         } catch (IOException ioException) {
-            // Log network or I/O related exceptions
-            Logger logger = LoggerFactory.getLogger(GPS.class);
-            logger.error("Network or I/O Exception occurred", ioException);
+            // Log network or I/O related exceptions if the API is not in cooldown
+            if (!isApiInCooldown) {
+                Logger logger = LoggerFactory.getLogger(GPS.class);
+                logger.error("Network or I/O Exception occurred", ioException);
+            }
             return calculateCrowTravelTime(otherGPS);
         } catch (JSONException jsonException) {
             // Log JSON parsing exceptions
@@ -170,8 +174,11 @@ public record GPS(double latitude, double longitude) implements Serializable {
                 }
             }
         } catch (IOException ioException) {
-            Logger logger = LoggerFactory.getLogger(GPS.class);
-            logger.error("Network or I/O Exception occurred while calculating distance", ioException);
+            // Log network or I/O related exceptions if the API is not in cooldown
+            if (!isApiInCooldown) {
+                Logger logger = LoggerFactory.getLogger(GPS.class);
+                logger.error("Network or I/O Exception occurred", ioException);
+            }
             return calculateCrowFliesDistance(destination);
         } catch (JSONException jsonException) {
             Logger logger = LoggerFactory.getLogger(GPS.class);

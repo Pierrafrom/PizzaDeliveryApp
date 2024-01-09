@@ -70,7 +70,8 @@ public class PierreAlgorithmTest extends AlgorithmTest {
         // Test to ensure that the greedy algorithm returns a list of the correct size
         int mandatoryOrderIndex = 0;
         ArrayList<Order> selectedOrders = PierreAlgorithm.greedyTime(greedyTestSuite, mandatoryOrderIndex);
-        assertEquals(5, selectedOrders.size(), "List should contain 5 orders (1 mandatory + 4 closest)");
+        assertEquals(5, selectedOrders.size(), "List should contain 5 orders " +
+                "(1 mandatory + 4 closest)");
     }
 
     @Test
