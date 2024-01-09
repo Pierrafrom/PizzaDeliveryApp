@@ -7,10 +7,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -19,7 +16,7 @@ import java.nio.file.Paths;
 
 import static java.lang.Math.round;
 
-public record GPS(double latitude, double longitude) {
+public record GPS(double latitude, double longitude) implements Serializable {
     private static final Path FILE_PATH = Paths.get("src/main/resources/data/");
     private static final String TIME_CACHE_FILE_NAME = "memoizationCacheTime.txt";
     private static final String DISTANCE_CACHE_FILE_NAME = "memoizationCacheDistance.txt";

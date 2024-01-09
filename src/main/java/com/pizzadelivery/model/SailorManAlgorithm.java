@@ -15,8 +15,8 @@ public class SailorManAlgorithm {
     public enum AlgorithmType {BRUTE_FORCE, DYNAMIC, GENETIC, GREEDY}
 
     // Constants
-    public static final int GREEDY_SIZE = 100;
-    public static final int GENETIC_SIZE = 50;
+    public static final int GREEDY_SIZE = 50;
+    public static final int GENETIC_SIZE = 20;
 
     // Methods
 
