@@ -1,5 +1,6 @@
 package com.pizzadelivery.model;
 
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class SamuelAlgorithm {
         ArrayList<Order> bestCombination = null;
         int minDiscount = Integer.MAX_VALUE;
         for (ArrayList<Order> currentCombination : allCombinations) {
-            int currentDiscount = Pizzeria.numberOfDiscount(currentCombination);
+            int currentDiscount = Order.numberOfDiscount(currentCombination);
             if (currentDiscount < minDiscount) {
                 minDiscount = currentDiscount;
                 bestCombination = new ArrayList<>(currentCombination);
@@ -120,7 +121,7 @@ public class SamuelAlgorithm {
                                                  int[] allDiscounts) {
         int index = allCombinations.indexOf(orders);
         if (allDiscounts[index] == -1) {
-            allDiscounts[index] = Pizzeria.numberOfDiscount(orders);
+            allDiscounts[index] = Order.numberOfDiscount(orders);
         }
         return allDiscounts[index];
     }
@@ -169,7 +170,7 @@ public class SamuelAlgorithm {
     private static ArrayList<Order> selectParent(ArrayList<ArrayList<Order>> population) {
         population.sort(Comparator.comparingDouble(individual -> {
             try {
-                return Pizzeria.totalDeliveryTime(individual);
+                return Order.totalDeliveryTime(individual);
             } catch (Exception e) {
                 Logger logger = Logger.getLogger(SamuelAlgorithm.class.getName());
                 logger.warning("Exception occurred: " + e.getMessage());
@@ -232,10 +233,34 @@ public class SamuelAlgorithm {
     }
 
     private static void mutate(ArrayList<Order> child) {
+        Random random = new Random();
+
+        int size = child.size();
+
+        // Choose two distinct positions in the child
+        int position1 = random.nextInt(size);
+        int position2;
+        do {
+            position2 = random.nextInt(size);
+        } while (position1 == position2);
+
+        // Swap the orders at the chosen positions
+        Order order1 = child.get(position1);
+        Order order2 = child.get(position2);
+
+        child.set(position1, order2);
+        child.set(position2, order1);
     }
 
     private static ArrayList<Order> findBestIndividual(ArrayList<ArrayList<Order>> population) {
-
-        return null;
+        double minTime = Integer.MAX_VALUE;
+        ArrayList<Order> minArray = new ArrayList<>();
+        for (int i = 0; i< population.size(); i++) {
+            if (Order.totalDeliveryTime(population.get(i))<minTime) {
+                minTime = Order.totalDeliveryTime(population.get(i));
+                minArray = population.get(i);
+            }
+        }
+        return minArray;
     }
 }
