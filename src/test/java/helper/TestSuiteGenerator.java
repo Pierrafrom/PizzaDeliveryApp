@@ -1,4 +1,4 @@
-package com.pizzadelivery.helper;
+package helper;
 
 import com.pizzadelivery.model.Order;
 import com.pizzadelivery.model.GPS;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public class TestHelper {
+public class TestSuiteGenerator {
 
     private final static String TEST_SUITE_PATH = "src/main/resources/test_suite/";
     private final static double MIN_LAT = 48.6199;
@@ -45,7 +45,7 @@ public class TestHelper {
                 updateOrderDates(orders);
                 return orders;
             } catch (IOException | ClassNotFoundException e) {
-                Logger logger = Logger.getLogger(TestHelper.class.getName());
+                Logger logger = Logger.getLogger(TestSuiteGenerator.class.getName());
                 logger.warning("Could not load test suite from file" + e.getMessage());
             }
         }
@@ -76,7 +76,7 @@ public class TestHelper {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(orders);
         } catch (IOException e) {
-            Logger logger = Logger.getLogger(TestHelper.class.getName());
+            Logger logger = Logger.getLogger(TestSuiteGenerator.class.getName());
             logger.warning("Could not save test suite to file" + e.getMessage());
         }
     }
