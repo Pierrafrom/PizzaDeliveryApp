@@ -30,7 +30,7 @@ public record GPS(double latitude, double longitude) implements Serializable {
     private static boolean isApiInCooldown = false;
     private static final int API_COOLDOWN_TIME_MS = 2 * 60 * 1000; // 2 minutes in milliseconds
 
-    private String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
+    public static String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
         // Check if the API is in cooldown
         if (isApiInCooldown) {
             throw new IOException("API is in cooldown");
@@ -49,8 +49,6 @@ public record GPS(double latitude, double longitude) implements Serializable {
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonPayload.toString().getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
-            Logger logger = LoggerFactory.getLogger(GPS.class);
-            logger.info("Sent request to OpenRouteService API : " + jsonPayload.toString());
         }
 
         // Now check the response code
@@ -97,7 +95,6 @@ public record GPS(double latitude, double longitude) implements Serializable {
 
         synchronized (fileLock) {
             if (memoizationCacheTime.containsKey(key)) {
-                System.out.println("Memoized");
                 return memoizationCacheTime.get(key);
             }
         }
