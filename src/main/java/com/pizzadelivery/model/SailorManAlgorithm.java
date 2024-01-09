@@ -46,8 +46,8 @@ public class SailorManAlgorithm {
         // 2 points per order delivered without a discount
         // Return the grade on a scale of 0 to 20
         // ...
-        double totalTime = Pizzeria.totalDeliveryTime(orders);
-        int totalDiscount = Pizzeria.numberOfDiscount(orders);
+        double totalTime = Order.totalDeliveryTime(orders);
+        int totalDiscount = Order.numberOfDiscount(orders);
 
         int[] noteMaxTimes = {
                 Grades.NOTE_10_MAX_TIME,

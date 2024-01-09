@@ -53,10 +53,6 @@ public class DeliveryPerson {
         this.orders = orders;
     }
 
-    public static int getMaxOrders() {
-        return MAX_ORDERS;
-    }
-
     // Other methods
 
     public void addOrder(Order order) {
