@@ -1,5 +1,8 @@
 package com.pizzadelivery.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,8 +10,9 @@ import java.util.Arrays;
 public class SailorManAlgorithm {
 
     // Enumerations
-    public enum Criteria { TIME, DISTANCE, DISCOUNT }
-    public enum AlgorithmType { BRUTE_FORCE, DYNAMIC, GENETIC, GREEDY }
+    public enum Criteria {TIME, DISTANCE, DISCOUNT}
+
+    public enum AlgorithmType {BRUTE_FORCE, DYNAMIC, GENETIC, GREEDY}
 
     // Constants
     public static final int GREEDY_SIZE = 100;
@@ -35,7 +39,7 @@ public class SailorManAlgorithm {
         return new ArrayList<>(); // Placeholder, replace with actual result
     }
 
-    public static int calculateGrade(ArrayList<Order> orders) throws RateLimitExceededException {
+    public static int calculateGrade(ArrayList<Order> orders) {
         int grade = 0;
         // Calculate the grade for a package of 5 orders
         // 1 point for each time interval (based on constants in Grades)
@@ -64,7 +68,7 @@ public class SailorManAlgorithm {
                 break;
             }
         }
-        grade += 2*(5-totalDiscount);
+        grade += 2 * (5 - totalDiscount);
 
         return grade;
     }
@@ -95,8 +99,9 @@ public class SailorManAlgorithm {
 
             // Print the result
             System.out.println("Grade: " + grade);
-        } catch (RateLimitExceededException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(SailorManAlgorithm.class);
+            logger.error("Exception occurred", e);
         }
     }
 }

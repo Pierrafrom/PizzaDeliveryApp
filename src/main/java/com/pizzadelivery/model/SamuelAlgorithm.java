@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
-
+import java.util.logging.Logger;
 
 
 public class SamuelAlgorithm {
 
-    public static void generateCombinations(ArrayList<Order> orders, int startIdx, int currentSize, ArrayList<Order> currentCombination, ArrayList<ArrayList<Order>> allCombinations) {
+    public static void generateCombinations(ArrayList<Order> orders, int startIdx, int currentSize,
+                                            ArrayList<Order> currentCombination,
+                                            ArrayList<ArrayList<Order>> allCombinations) {
         if (currentSize == 5) {
             allCombinations.add(new ArrayList<>(currentCombination));
             return;
@@ -29,8 +31,7 @@ public class SamuelAlgorithm {
     }
 
 
-
-    public static ArrayList<Order> bruteForceDiscount(ArrayList<ArrayList<Order>> allCombinations) throws RateLimitExceededException {
+    public static ArrayList<Order> bruteForceDiscount(ArrayList<ArrayList<Order>> allCombinations) {
         ArrayList<Order> bestCombination = null;
         int minDiscount = Integer.MAX_VALUE;
         for (ArrayList<Order> currentCombination : allCombinations) {
@@ -47,7 +48,7 @@ public class SamuelAlgorithm {
         ArrayList<Order> bestCombination = new ArrayList<>();
         Order previousOrder = new Order(0, Pizzeria.PIZZERIA_LOCATION, LocalDateTime.now());
 
-        while (!orders.isEmpty() && bestCombination.size()<5) {
+        while (!orders.isEmpty() && bestCombination.size() < 5) {
             double minDistance = Double.MAX_VALUE;
             int selectedIndex = -1;
 
@@ -69,7 +70,7 @@ public class SamuelAlgorithm {
         return bestCombination;
     }
 
-    public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders) throws RateLimitExceededException {
+    public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders) {
         ArrayList<ArrayList<Order>> allCombinations = new ArrayList<>();
         generateCombinations(orders, allCombinations);
 
@@ -115,7 +116,8 @@ public class SamuelAlgorithm {
         return allCombinations.get(maxDiscountIndex);
     }
 
-    private static int memoizedCalculateDiscount(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations, int[] allDiscounts) throws RateLimitExceededException {
+    private static int memoizedCalculateDiscount(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations,
+                                                 int[] allDiscounts) {
         int index = allCombinations.indexOf(orders);
         if (allDiscounts[index] == -1) {
             allDiscounts[index] = Pizzeria.numberOfDiscount(orders);
@@ -150,10 +152,10 @@ public class SamuelAlgorithm {
         ArrayList<ArrayList<Order>> population = new ArrayList<>(populationSize);
         ArrayList<Order> individual = new ArrayList<>();
         Random random = new Random();
-        for(int i = 0; i<populationSize; i++) {
-            for (int j = 0; individual.size()<5; j++) {
+        for (int i = 0; i < populationSize; i++) {
+            for (int j = 0; individual.size() < 5; j++) {
                 Order randomOrder = orders.get(random.nextInt(orders.size()) + 1);
-                if(!individual.contains(randomOrder)) {
+                if (!individual.contains(randomOrder)) {
                     individual.add(randomOrder);
                 }
             }
@@ -164,13 +166,14 @@ public class SamuelAlgorithm {
     }
 
 
-
     private static ArrayList<Order> selectParent(ArrayList<ArrayList<Order>> population) {
         population.sort(Comparator.comparingDouble(individual -> {
             try {
                 return Pizzeria.totalDeliveryTime(individual);
-            } catch (RateLimitExceededException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                Logger logger = Logger.getLogger(SamuelAlgorithm.class.getName());
+                logger.warning("Exception occurred: " + e.getMessage());
+                throw (e);
             }
         }));
         ArrayList<Order> topPerformer = population.remove(0);
@@ -180,7 +183,6 @@ public class SamuelAlgorithm {
     /**
      * Applies a crossover between two individuals
      * to create a child individual
-     *
      *
      * @param parent1 The first parent individual.
      * @param parent2 The second parent individual.

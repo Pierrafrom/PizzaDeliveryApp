@@ -1,4 +1,3 @@
-import com.pizzadelivery.model.RateLimitExceededException;
 import com.pizzadelivery.model.GPS;
 import com.pizzadelivery.model.Order;
 import com.pizzadelivery.model.Pizzeria;

@@ -1,5 +1,4 @@
 import com.pizzadelivery.model.GPS;
-import com.pizzadelivery.model.RateLimitExceededException;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
