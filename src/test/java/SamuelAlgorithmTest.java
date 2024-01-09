@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class SamuelAlgorithmTest {
-    GPS gps1 = new GPS(48.8080723,2.0461625); // Fontenay-le-Fleury coordinates
+    GPS gps1 = new GPS(48.8080723, 2.0461625); // Fontenay-le-Fleury coordinates
     GPS gps2 = new GPS(48.7110453470687, 2.1714970680132244); // Orsay coordinates
     GPS gps3 = new GPS(48.745532, 2.117367); // Toussus le Noble coordinates
-    GPS gps4 = new GPS(48.8416525,2.2731171); // Paris 15th arrondissment coordinates
-    GPS gps5 = new GPS(48.7370955,2.0749577); // Chateaufort coordinates
+    GPS gps4 = new GPS(48.8416525, 2.2731171); // Paris 15th arrondissment coordinates
+    GPS gps5 = new GPS(48.7370955, 2.0749577); // Chateaufort coordinates
 
     Order order1 = new Order(1, gps1, LocalDateTime.now());
     Order order2 = new Order(2, gps2, LocalDateTime.now());
@@ -21,7 +21,7 @@ public class SamuelAlgorithmTest {
     Order order6 = new Order(6, gps1, LocalDateTime.now());
 
     @Test
-    public void testBruteForceDiscount() throws RateLimitExceededException {
+    public void testBruteForceDiscount() {
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(order1);
         orders.add(order2);
@@ -34,7 +34,7 @@ public class SamuelAlgorithmTest {
         ArrayList<Order> bestCombination = SamuelAlgorithm.bruteForceDiscount(allCombinations);
         System.out.println("Meilleure combinaison pour réduction : ");
         for (Order order : bestCombination) {
-            System.out.print(order.id()+" ");
+            System.out.print(order.id() + " ");
         }
         System.out.println();
         System.out.println("Nombre de tickets de réduction : " + Pizzeria.numberOfDiscount(bestCombination));
@@ -44,7 +44,7 @@ public class SamuelAlgorithmTest {
         // You need to adjust the assertions based on the expected behavior of your algorithm
         // In this example, we are just checking if the returned list is not null
         // and that it does not exceed the original number of orders
-        ArrayList<Order>test = new ArrayList<Order>();
+        ArrayList<Order> test = new ArrayList<Order>();
         test.add(order1);
         test.add(order2);
         test.add(order3);
@@ -58,8 +58,9 @@ public class SamuelAlgorithmTest {
         assertEquals(true, bestCombination.get(4) == test.get(4));
         assertEquals(true, bestCombination.size() <= orders.size());
     }
+
     @Test
-    public void testGreedyDiscount() throws RateLimitExceededException {
+    public void testGreedyDiscount() {
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(order1);
         orders.add(order2);
@@ -85,7 +86,7 @@ public class SamuelAlgorithmTest {
 
         ArrayList<Order> bestCombination = SamuelAlgorithm.greedyDistance(orders);
         for (Order order : bestCombination) {
-            System.out.print(order.id()+" ");
+            System.out.print(order.id() + " ");
         }
         System.out.println();
         // Assert
@@ -98,9 +99,8 @@ public class SamuelAlgorithmTest {
     }
 
 
-
     @Test
-    public void testDynamicDiscount() throws RateLimitExceededException {
+    public void testDynamicDiscount() {
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(order1);
         orders.add(order2);
@@ -127,10 +127,10 @@ public class SamuelAlgorithmTest {
         ArrayList<Order> result = SamuelAlgorithm.dynamicDiscount(orders);
 
         for (Order order : result) {
-            System.out.print(order.id()+" ");
+            System.out.print(order.id() + " ");
         }
         System.out.println();
-        ArrayList<Order>test = new ArrayList<Order>();
+        ArrayList<Order> test = new ArrayList<Order>();
         test.add(order1);
         test.add(order5);
         test.add(order6);

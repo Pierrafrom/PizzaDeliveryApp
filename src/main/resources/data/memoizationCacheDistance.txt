@@ -3,6 +3,7 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,841653, longitude=2,
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,745532, longitude=2,117367}:8.0
 GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,808072, longitude=2,046163}:13.0
 GPS{latitude=48,711045, longitude=2,171497}|GPS{latitude=48,745532, longitude=2,117367}:8.0
+GPS{latitude=48,808072, longitude=2,046163}|GPS{latitude=48,711045, longitude=2,171497}:26.0
 GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,841653, longitude=2,273117}:26.0
 GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,745532, longitude=2,117367}:0.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,737096, longitude=2,074958}:12.0

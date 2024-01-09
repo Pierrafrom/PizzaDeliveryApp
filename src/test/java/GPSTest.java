@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GPSTest {
 
     @Test
-    public void timeTravel_shouldReturnCorrectTime() throws RateLimitExceededException {
+    public void timeTravel_shouldReturnCorrectTime() {
         GPS gps1 = new GPS(48.8080723,2.0461625); // Fontenay-le-Fleury coordinates
         GPS gps2 = new GPS(48.7110453470687, 2.1714970680132244); // Orsay coordinates
 

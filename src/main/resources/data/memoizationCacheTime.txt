@@ -23,8 +23,10 @@ GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,711045, longitude=2,
 GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,745532, longitude=2,117367}:0.0
 GPS{latitude=48,737096, longitude=2,074958}|GPS{latitude=48,745532, longitude=2,117367}:14.0
 GPS{latitude=48,711045, longitude=2,171497}|GPS{latitude=48,737096, longitude=2,074958}:20.0
+32, longitude=2,117367}:23.0
 GPS{latitude=48,808072, longitude=2,046163}|GPS{latitude=48,737096, longitude=2,074958}:24.0
 GPS{latitude=48,745532, longitude=2,117367}|GPS{latitude=48,737096, longitude=2,074958}:13.0
 GPS{latitude=48,711045, longitude=2,171497}|GPS{latitude=48,841653, longitude=2,273117}:28.0
 GPS{latitude=48,711045, longitude=2,171497}|GPS{latitude=48,711045, longitude=2,171497}:0.0
 GPS{latitude=48,808072, longitude=2,046163}|GPS{latitude=48,745532, longitude=2,117367}:23.0
+

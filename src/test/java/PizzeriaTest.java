@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PizzeriaTest {
 
     @Test
-    public void testNumberOfDiscount() throws RateLimitExceededException {
+    public void testNumberOfDiscount() {
         GPS gps1 = new GPS(48.8080723, 2.0461625);
         GPS gps2 = new GPS(48.7110453470687, 2.1714970680132244);
         GPS gps3 = new GPS(48.745532, 2.117367);
