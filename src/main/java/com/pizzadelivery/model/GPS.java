@@ -1,14 +1,13 @@
 package com.pizzadelivery.model;
 
 import com.pizzadelivery.config.ApiConfig;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -17,9 +16,7 @@ import java.nio.file.Paths;
 
 import static java.lang.Math.round;
 
-public class GPS {
-    private final double latitude;
-    private final double longitude;
+public record GPS(double latitude, double longitude) implements Serializable {
     private static final Path FILE_PATH = Paths.get("src/main/resources/data/");
     private static final String TIME_CACHE_FILE_NAME = "memoizationCacheTime.txt";
     private static final String DISTANCE_CACHE_FILE_NAME = "memoizationCacheDistance.txt";
@@ -28,23 +25,10 @@ public class GPS {
     private static final Object fileLock = new Object();
     private static final double SCOOTER_SPEED_KMH = 50;
 
-    public GPS(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
 
     private String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
         // Set up the URL and open a connection
-        URL url = new URL("https://api.openrouteservice.org/v2/directions/driving-car");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        // Set request method and headers
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Authorization", ApiConfig.OPENROUTE_API_KEY);
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setDoOutput(true);
+        HttpURLConnection conn = getHttpURLConnection();
 
         // Create JSON payload with coordinates
         JSONObject jsonPayload = new JSONObject();
@@ -69,20 +53,27 @@ public class GPS {
             }
         }
         if (conn.getResponseCode() == 429) {
-            throw new RateLimitExceededException("API rate limit exceeded. Waiting before retrying...");
+            throw new Exception("API rate limit exceeded. Waiting before retrying...");
         }
 
         return response.toString();
     }
 
-    private void updateMemoizationCache(String key, Double time, Float distance) {
-        memoizationCacheTime.put(key, time);
-        memoizationCacheDistance.put(key, Double.valueOf(distance)); // Convert Float to Double
+    @NotNull
+    private static HttpURLConnection getHttpURLConnection() throws IOException {
+        URL url = new URL("https://api.openrouteservice.org/v2/directions/driving-car");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        // Set request method and headers
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", ApiConfig.OPENROUTE_API_KEY);
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
+        return conn;
     }
 
-
-
-    public double timeTravel(GPS otherGPS) throws RateLimitExceededException {
+    public double timeTravel(GPS otherGPS) {
         String key = this + "|" + otherGPS;
 
         synchronized (fileLock) {
@@ -112,24 +103,15 @@ public class GPS {
 
                 return duration;
             }
-        } catch (RateLimitExceededException e) {
-            throw new RuntimeException(e);
         } catch (Exception apiException) {
             // Log API exceptions
             Logger logger = LoggerFactory.getLogger(GPS.class);
             logger.error("API Exception occurred", apiException);
 
             // Fallback to calculateCrowTravelTime
-            double crowTravelTime = calculateCrowTravelTime(otherGPS);
-
-            // Memoize the calculated travel time
-            synchronized (fileLock) {
-                memoizationCacheTime.put(key, crowTravelTime);
-            }
-
-            return crowTravelTime;
+            return calculateCrowTravelTime(otherGPS);
         }
-        return 0;
+        return -1;
     }
 
     public double calculateDistance(GPS destination) {
@@ -142,7 +124,7 @@ public class GPS {
         }
 
         // If not memoized, calculate using the API
-        double distance = 0.0;
+        double distance = -1;
 
         try {
             String response = callOpenRouteServiceApi(this, destination);
@@ -168,11 +150,6 @@ public class GPS {
 
             // Fallback to calculateCrowFliesDistance
             distance = calculateCrowFliesDistance(destination);
-
-            // Memoize the calculated distance
-            synchronized (fileLock) {
-                memoizationCacheDistance.put(memoizationKey, distance);
-            }
         }
 
         return distance;
@@ -184,8 +161,8 @@ public class GPS {
         double earthRadius = 6371;
 
         // Convert latitudes and longitudes from degrees to radians
-        double lat1 = Math.toRadians(getLatitude());
-        double lon1 = Math.toRadians(getLongitude());
+        double lat1 = Math.toRadians(latitude());
+        double lon1 = Math.toRadians(longitude());
         double lat2 = Math.toRadians(destination.latitude);
         double lon2 = Math.toRadians(destination.longitude);
 
@@ -204,7 +181,7 @@ public class GPS {
     }
 
     public double calculateCrowTravelTime(GPS destination) {
-        double travelTime = 0.0;
+        double travelTime = -1;
         try {
             double distance = calculateCrowFliesDistance(destination);
             // Calculate travel time based on scooter speed
@@ -218,32 +195,7 @@ public class GPS {
         return travelTime;
     }
 
-    // Getters and setters
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public static Path getFilePath() {
-        return FILE_PATH;
-    }
-
-    public static SaveableHashMap<String, Double> getMemoizationCacheTime() {
-        return memoizationCacheTime;
-    }
-
-    public static SaveableHashMap<String, Double> getMemoizationCacheDistance() {
-        return memoizationCacheDistance;
-    }
-
-    public static double getScooterSpeedKmh() {
-        return SCOOTER_SPEED_KMH;
-    }
-
+    // ToString method
     @Override
     public String toString() {
         return String.format("GPS{latitude=%.6f, longitude=%.6f}", latitude, longitude);

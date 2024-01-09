@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Logger;
 
 public class SaveableHashMap<K, V> extends HashMap<K, V> {
     private final Lock fileLock;
@@ -63,7 +64,8 @@ public class SaveableHashMap<K, V> extends HashMap<K, V> {
             return loadedData;
         } catch (Exception e) {
             // Log or handle the exception as needed
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(SaveableHashMap.class.getName());
+            logger.warning("Exception occurred while loading data from file");
             return new HashMap<>();
         } finally {
             fileLock.unlock(); // Libérer le verrou après la lecture depuis le fichier
@@ -75,7 +77,8 @@ public class SaveableHashMap<K, V> extends HashMap<K, V> {
             return (V) Double.valueOf(value);
         } catch (NumberFormatException e) {
             // Log or handle the exception as needed
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(SaveableHashMap.class.getName());
+            logger.warning("Exception occurred while converting value");
             return null; // Ou une valeur par défaut appropriée
         }
     }
@@ -92,7 +95,8 @@ public class SaveableHashMap<K, V> extends HashMap<K, V> {
             Files.writeString(filePath, content.toString(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
         } catch (Exception e) {
             // Log or handle the exception as needed
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(SaveableHashMap.class.getName());
+            logger.warning("Exception occurred while saving data to file");
         } finally {
             fileLock.unlock(); // Libérer le verrou après avoir écrit dans le fichier
         }
