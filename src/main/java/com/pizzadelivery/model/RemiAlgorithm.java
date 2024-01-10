@@ -18,7 +18,7 @@ public class RemiAlgorithm {
 
             for (ArrayList<Order> p : combinations) {
                 ArrayList<Order> newList = new ArrayList<>();
-                newList.add(m); // 'm' est un entier dans ce contexte
+                newList.add(m);
                 newList.addAll(p);
                 result.add(newList);
             }
