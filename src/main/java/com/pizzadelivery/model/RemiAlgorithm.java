@@ -26,8 +26,8 @@ public class RemiAlgorithm {
         return result;
     }
     public static ArrayList<Order> brute_force_distance(ArrayList<Order> orders){
-        double min_distance = Float.POSITIVE_INFINITY;
-        ArrayList<Order> best_combination = new ArrayList<>();
+        double min_distance = Double.POSITIVE_INFINITY;
+        ArrayList<Order> best_combination = null;
         ArrayList<ArrayList<Order>> ALL_Orders = generate_combinations(orders, 5);
         for (ArrayList<Order> allOrder : ALL_Orders) {
             double total_distance = 0;
@@ -36,7 +36,7 @@ public class RemiAlgorithm {
             }
             if (total_distance < min_distance) {
                 min_distance = total_distance;
-                best_combination.addAll(allOrder);
+                best_combination = new ArrayList<>(allOrder);
             }
         }
         return best_combination;
