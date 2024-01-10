@@ -3,6 +3,7 @@ package com.pizzadelivery.model;
 import com.pizzadelivery.config.ApiConfig;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +21,20 @@ public record GPS(double latitude, double longitude) implements Serializable {
     private static final Path FILE_PATH = Paths.get("src/main/resources/data/");
     private static final String TIME_CACHE_FILE_NAME = "memoizationCacheTime.txt";
     private static final String DISTANCE_CACHE_FILE_NAME = "memoizationCacheDistance.txt";
-    private static final SaveableHashMap<String, Double> memoizationCacheTime = new SaveableHashMap<>(FILE_PATH.resolve(TIME_CACHE_FILE_NAME));
-    private static final SaveableHashMap<String, Double> memoizationCacheDistance = new SaveableHashMap<>(FILE_PATH.resolve(DISTANCE_CACHE_FILE_NAME));
+    private static final SaveableHashMap<String, Double> memoizationCacheTime =
+            new SaveableHashMap<>(FILE_PATH.resolve(TIME_CACHE_FILE_NAME));
+    private static final SaveableHashMap<String, Double> memoizationCacheDistance =
+            new SaveableHashMap<>(FILE_PATH.resolve(DISTANCE_CACHE_FILE_NAME));
     private static final Object fileLock = new Object();
     private static final double SCOOTER_SPEED_KMH = 50;
+    private static boolean isApiInCooldown = false;
+    private static final int API_COOLDOWN_TIME_MS = 2 * 60 * 1000; // 2 minutes in milliseconds
 
-
-    private String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
+    public static String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
+        // Check if the API is in cooldown
+        if (isApiInCooldown) {
+            throw new IOException("API is in cooldown");
+        }
         // Set up the URL and open a connection
         HttpURLConnection conn = getHttpURLConnection();
 
@@ -43,17 +51,26 @@ public record GPS(double latitude, double longitude) implements Serializable {
             os.write(input, 0, input.length);
         }
 
+        // Now check the response code
+        int responseCode = conn.getResponseCode();
+        if (responseCode == 429) {
+            startApiCooldown();
+            throw new IOException("API rate limit exceeded. Waiting before retrying...");
+        }
+
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            // throw an exception and the message from the API
+            throw new IOException("HTTP error code: " + responseCode + ", message: " + conn.getResponseMessage());
+        }
+
         // Read and return response
         StringBuilder response = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),
+                StandardCharsets.UTF_8))) {
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-        }
-        if (conn.getResponseCode() == 429) {
-            throw new Exception("API rate limit exceeded. Waiting before retrying...");
         }
 
         return response.toString();
@@ -82,8 +99,6 @@ public record GPS(double latitude, double longitude) implements Serializable {
             }
         }
 
-        System.out.println("timeTravel");
-
         try {
             // Call the API and parse the response
             String response = callOpenRouteServiceApi(this, otherGPS);
@@ -103,15 +118,27 @@ public record GPS(double latitude, double longitude) implements Serializable {
 
                 return duration;
             }
-        } catch (Exception apiException) {
-            // Log API exceptions
+        } catch (IOException ioException) {
+            // Log network or I/O related exceptions if the API is not in cooldown
+            if (!isApiInCooldown) {
+                Logger logger = LoggerFactory.getLogger(GPS.class);
+                logger.error("Network or I/O Exception occurred", ioException);
+            }
+            return calculateCrowTravelTime(otherGPS);
+        } catch (JSONException jsonException) {
+            // Log JSON parsing exceptions
             Logger logger = LoggerFactory.getLogger(GPS.class);
-            logger.error("API Exception occurred", apiException);
-
-            // Fallback to calculateCrowTravelTime
+            logger.error("JSON Parsing Exception occurred", jsonException);
+            return calculateCrowTravelTime(otherGPS);
+        } catch (Exception generalException) {
+            // Log any other exceptions
+            Logger logger = LoggerFactory.getLogger(GPS.class);
+            logger.error("General Exception occurred", generalException);
             return calculateCrowTravelTime(otherGPS);
         }
         return -1;
+
+
     }
 
     public double calculateDistance(GPS destination) {
@@ -143,13 +170,21 @@ public record GPS(double latitude, double longitude) implements Serializable {
                     memoizationCacheDistance.put(memoizationKey, distance);
                 }
             }
-        } catch (Exception apiException) {
-            // Log API exceptions
+        } catch (IOException ioException) {
+            // Log network or I/O related exceptions if the API is not in cooldown
+            if (!isApiInCooldown) {
+                Logger logger = LoggerFactory.getLogger(GPS.class);
+                logger.error("Network or I/O Exception occurred", ioException);
+            }
+            return calculateCrowFliesDistance(destination);
+        } catch (JSONException jsonException) {
             Logger logger = LoggerFactory.getLogger(GPS.class);
-            logger.error("API Exception occurred while calculating distance", apiException);
-
-            // Fallback to calculateCrowFliesDistance
-            distance = calculateCrowFliesDistance(destination);
+            logger.error("JSON Parsing Exception occurred while calculating distance", jsonException);
+            return calculateCrowFliesDistance(destination);
+        } catch (Exception generalException) {
+            Logger logger = LoggerFactory.getLogger(GPS.class);
+            logger.error("General Exception occurred while calculating distance", generalException);
+            return calculateCrowFliesDistance(destination);
         }
 
         return distance;
@@ -193,6 +228,22 @@ public record GPS(double latitude, double longitude) implements Serializable {
         }
 
         return travelTime;
+    }
+
+    private static void startApiCooldown() {
+        isApiInCooldown = true;
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(API_COOLDOWN_TIME_MS);
+            } catch (InterruptedException e) {
+                Logger logger = LoggerFactory.getLogger(GPS.class);
+                logger.error("Exception occurred while waiting for API cooldown", e);
+                isApiInCooldown = false;
+                Thread.currentThread().interrupt();
+            }
+            isApiInCooldown = false;
+        }).start();
     }
 
     // ToString method

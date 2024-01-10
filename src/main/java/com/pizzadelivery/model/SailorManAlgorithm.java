@@ -81,27 +81,4 @@ public class SailorManAlgorithm {
 
         // Placeholder, implement the logic
     }
-
-    public static void main(String[] args) {
-        try {
-            // Create some sample orders
-            Order order1 = new Order(1, new GPS(48.712, 2.166), LocalDateTime.now());
-            Order order2 = new Order(2, new GPS(48.713, 2.167), LocalDateTime.now());
-            Order order3 = new Order(3, new GPS(48.714, 2.168), LocalDateTime.now());
-            Order order4 = new Order(4, new GPS(48.715, 2.169), LocalDateTime.now());
-            Order order5 = new Order(5, new GPS(48.716, 2.170), LocalDateTime.now());
-
-            // Create an ArrayList of orders
-            ArrayList<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3, order4, order5));
-
-            // Call the calculateGrade method
-            int grade = calculateGrade(orders);
-
-            // Print the result
-            System.out.println("Grade: " + grade);
-        } catch (Exception e) {
-            Logger logger = LoggerFactory.getLogger(SailorManAlgorithm.class);
-            logger.error("Exception occurred", e);
-        }
-    }
 }

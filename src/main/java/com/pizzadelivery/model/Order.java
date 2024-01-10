@@ -50,6 +50,20 @@ public class Order implements Serializable {
         return totalTime;
     }
 
+    public static double totalDeliveryDistance(ArrayList<Order> orders) {
+        double totalDistance = 0;
+        double deliveryDistance = Pizzeria.PIZZERIA_LOCATION.calculateDistance(orders.get(0).location());
+        totalDistance += deliveryDistance;
+        for (int i = 0; i < orders.size() - 1; i++) {
+            Order previousOrder = orders.get(i);
+            Order currentOrder = orders.get(i + 1);
+            deliveryDistance = previousOrder.location().calculateDistance(currentOrder.location());
+            totalDistance += deliveryDistance;
+        }
+        totalDistance += orders.get(orders.size() - 1).location().calculateDistance(Pizzeria.PIZZERIA_LOCATION);
+        return totalDistance;
+    }
+
     public String toString() {
         return "Order " + id() + " at " + location() + " at " + time();
     }
