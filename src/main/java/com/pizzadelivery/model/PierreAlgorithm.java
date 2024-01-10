@@ -76,54 +76,21 @@ public class PierreAlgorithm {
     // -----------------------------------------------------------------------------------------------------------------
     // Dynamic algorithm with distance criterion
     // -----------------------------------------------------------------------------------------------------------------
-    public static ArrayList<Order> dynamicDistance(ArrayList<Order> orders, int mandatoryOrderIndex) {
+    public static ArrayList<Order> dynamicDistance(ArrayList<Order> orders, Order mandatoryOrder) {
+
+        /*
+        on prend en paramètre une liste de commande et une commande obligatoire
+        l'objectif est de trouver la liste de commande qui minimise la distance totale de livraison
+        on doit selectionner 4 commandes dans la liste et les ajouter a la commande obligatoire
+        ensuite on doit
+        on doit trouver les solutions pour 1 commande puis 2 commandes puis 3 commandes etc. en étant dynamique et donc en gradnat toute les solutions
+         */
         if (orders.size() < 5) {
             throw new IllegalArgumentException("The number of orders must be at least 5");
         }
-        Order mandatoryOrder = orders.get(mandatoryOrderIndex);
-        ArrayList<ArrayList<Order>> allCombinations = generateCombinations(orders, mandatoryOrder);
-
-        double minDistance = Double.MAX_VALUE;
-        ArrayList<Order> bestCombination = new ArrayList<>();
-
-        for (ArrayList<Order> combination : allCombinations) {
-            // in this method, we use memoization to avoid computing the same distance multiple times
-            double distance = Order.totalDeliveryDistance(combination);
-            if (distance < minDistance) {
-                minDistance = distance;
-                bestCombination = new ArrayList<>(combination);
-            }
-        }
-
-        for (Order order : bestCombination) {
-            System.out.println(order);
-        }
-        System.out.println("Distance: " + minDistance);
-        return bestCombination;
+        return null;
     }
 
-    private static ArrayList<ArrayList<Order>> generateCombinations(ArrayList<Order> orders, Order mandatoryOrder) {
-        ArrayList<ArrayList<Order>> allCombinations = new ArrayList<>();
-        ArrayList<Order> startingCombination = new ArrayList<>();
-        startingCombination.add(mandatoryOrder);
-        generateCombinationsRecursive(orders, startingCombination, 1, allCombinations);
-        return allCombinations;
-    }
-
-    private static void generateCombinationsRecursive(ArrayList<Order> orders, ArrayList<Order> current, int count, ArrayList<ArrayList<Order>> allCombinations) {
-        if (count == 5) {
-            allCombinations.add(new ArrayList<>(current));
-            return;
-        }
-
-        for (Order order : orders) {
-            if (!current.contains(order)) {
-                current.add(order);
-                generateCombinationsRecursive(orders, current, count + 1, allCombinations);
-                current.remove(order);
-            }
-        }
-    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // Genetic algorithm with discount criterion
