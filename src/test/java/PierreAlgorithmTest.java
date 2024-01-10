@@ -96,4 +96,39 @@ public class PierreAlgorithmTest extends AlgorithmTest {
         }, "An exception should be thrown for an empty input list");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // Dynamic programming algorithm with distance criterion
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Test
+    public void testDynamicDistanceCorrectSize() {
+        ArrayList<Order> orders = dynamicTestSuite;
+        ArrayList<Order> result = PierreAlgorithm.dynamicDistance(orders, 0);
+        assertEquals(5, result.size(), "La liste doit contenir exactement 5 commandes");
+    }
+
+    @Test
+    public void testDynamicDistanceIncludesMandatoryOrder() {
+        ArrayList<Order> orders = dynamicTestSuite;
+        ArrayList<Order> result = PierreAlgorithm.dynamicDistance(orders, 0);
+        Order mandatoryOrder = orders.get(0);
+        assertTrue(result.contains(mandatoryOrder), "La liste doit contenir la commande obligatoire");
+    }
+
+    @Test
+    public void testDynamicDistanceEmptyList() {
+        ArrayList<Order> orders = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> {
+            PierreAlgorithm.dynamicDistance(orders, 0);
+        }, "Une exception doit être levée pour une liste vide");
+    }
+
+    @Test
+    public void testDynamicDistanceSingleElement() {
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(dynamicTestSuite.get(0));
+        assertThrows(IllegalArgumentException.class, () -> {
+            PierreAlgorithm.dynamicDistance(orders, 0);
+        }, "Une exception doit être levée pour une liste avec un seul élément");
+    }
 }

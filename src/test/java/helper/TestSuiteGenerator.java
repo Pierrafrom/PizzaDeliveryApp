@@ -125,7 +125,6 @@ public class TestSuiteGenerator {
         ArrayList<GPS> validGpsList = new ArrayList<>();
 
         if (gpsFile.exists() && gpsFile.length() > 0) {
-            System.out.println("File exists");
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(gpsFile))) {
                 validGpsList = (ArrayList<GPS>) ois.readObject();
             } catch (IOException | ClassNotFoundException e) {
@@ -135,7 +134,6 @@ public class TestSuiteGenerator {
         }
 
         while (validGpsList.size() < 70) {
-            System.out.println("Generating new GPS");
             try {
                 GPS validGps = generateValidGPS();
                 validGpsList.add(validGps);
@@ -145,7 +143,6 @@ public class TestSuiteGenerator {
                 logger.warning("Error generating valid GPS: " + e.getMessage());
             }
         }
-        System.out.println("GPS list size: " + validGpsList.size());
         return validGpsList;
     }
 

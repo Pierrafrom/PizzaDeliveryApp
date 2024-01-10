@@ -37,19 +37,19 @@ public class PierreAlgorithm {
     // -----------------------------------------------------------------------------------------------------------------
     // greedy algorithm with time criterion
     // -----------------------------------------------------------------------------------------------------------------
-    public static ArrayList<Order> greedyTime(ArrayList<Order> orders, int orderToDeliverIndex) {
+    public static ArrayList<Order> greedyTime(ArrayList<Order> orders, int mandatoryOrderIndex) {
         if (orders.size() < 5) {
             throw new IllegalArgumentException("The number of orders must be at least 5");
         }
         ArrayList<Order> selectedOrders = new ArrayList<>();
-        Order mandatoryOrder = orders.get(orderToDeliverIndex);
+        Order mandatoryOrder = orders.get(mandatoryOrderIndex);
         selectedOrders.add(mandatoryOrder);
 
         Set<Order> remainingOrders = new HashSet<>(orders);
         remainingOrders.remove(mandatoryOrder);
 
         for (int i = 0; i < 4; i++) {
-            Order closestOrder = findClosestOrder(mandatoryOrder, remainingOrders);
+            Order closestOrder = findClosestOrder(selectedOrders.get(selectedOrders.size() - 1), remainingOrders);
             if (closestOrder != null) {
                 selectedOrders.add(closestOrder);
                 remainingOrders.remove(closestOrder);
@@ -70,7 +70,62 @@ public class PierreAlgorithm {
                 closestOrder = order;
             }
         }
-
         return closestOrder;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Dynamic algorithm with distance criterion
+    // -----------------------------------------------------------------------------------------------------------------
+    public static ArrayList<Order> dynamicDistance(ArrayList<Order> orders, int mandatoryOrderIndex) {
+        if (orders.size() < 5) {
+            throw new IllegalArgumentException("The number of orders must be at least 5");
+        }
+        Order mandatoryOrder = orders.get(mandatoryOrderIndex);
+        ArrayList<ArrayList<Order>> allCombinations = generateCombinations(orders, mandatoryOrder);
+
+        double minDistance = Double.MAX_VALUE;
+        ArrayList<Order> bestCombination = new ArrayList<>();
+
+        for (ArrayList<Order> combination : allCombinations) {
+            // in this method, we use memoization to avoid computing the same distance multiple times
+            double distance = Order.totalDeliveryDistance(combination);
+            if (distance < minDistance) {
+                minDistance = distance;
+                bestCombination = new ArrayList<>(combination);
+            }
+        }
+
+        for (Order order : bestCombination) {
+            System.out.println(order);
+        }
+        System.out.println("Distance: " + minDistance);
+        return bestCombination;
+    }
+
+    private static ArrayList<ArrayList<Order>> generateCombinations(ArrayList<Order> orders, Order mandatoryOrder) {
+        ArrayList<ArrayList<Order>> allCombinations = new ArrayList<>();
+        ArrayList<Order> startingCombination = new ArrayList<>();
+        startingCombination.add(mandatoryOrder);
+        generateCombinationsRecursive(orders, startingCombination, 1, allCombinations);
+        return allCombinations;
+    }
+
+    private static void generateCombinationsRecursive(ArrayList<Order> orders, ArrayList<Order> current, int count, ArrayList<ArrayList<Order>> allCombinations) {
+        if (count == 5) {
+            allCombinations.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (Order order : orders) {
+            if (!current.contains(order)) {
+                current.add(order);
+                generateCombinationsRecursive(orders, current, count + 1, allCombinations);
+                current.remove(order);
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Genetic algorithm with discount criterion
+    // -----------------------------------------------------------------------------------------------------------------
 }
