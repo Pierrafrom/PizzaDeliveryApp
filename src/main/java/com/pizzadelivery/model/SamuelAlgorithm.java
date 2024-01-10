@@ -6,46 +6,39 @@ import java.util.logging.Logger;
 
 
 public class SamuelAlgorithm {
+    /*--------------------------------------------------------------------------------------
+                                  BRUTE FORCE discount ALGORITHM
+      --------------------------------------------------------------------------------------*/
 
-    public static void generateCombinations(ArrayList<Order> orders, int startIdx, int currentSize,
-                                            ArrayList<Order> currentCombination,
-                                            ArrayList<ArrayList<Order>> allCombinations) {
-        if (currentSize == 5) {
-            allCombinations.add(new ArrayList<>(currentCombination));
-            return;
+    private static void generateCombinations(ArrayList<Order> orders, int k, ArrayList<Order> bestOrderSequence, int[] leastDiscount) {
+        for (int i = k; i < orders.size(); i++) {
+            Collections.swap(orders, i, k);
+            generateCombinations(orders, k + 1, bestOrderSequence, leastDiscount);
+            Collections.swap(orders, k, i);
         }
-
-        for (int i = startIdx; i < orders.size(); i++) {
-            currentCombination.add(orders.get(i));
-            generateCombinations(orders, i + 1, currentSize + 1, currentCombination, allCombinations);
-            currentCombination.remove(currentCombination.size() - 1);
-        }
-    }
-
-    // Wrapper method for the initial call
-    public static ArrayList<ArrayList<Order>> generateCombinations(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations) {
-        generateCombinations(orders, 0, 0, new ArrayList<>(), allCombinations);
-        return allCombinations;
-    }
-
-
-    public static ArrayList<Order> bruteForceDiscount(ArrayList<ArrayList<Order>> allCombinations) {
-        ArrayList<Order> bestCombination = null;
-        int minDiscount = Integer.MAX_VALUE;
-        for (ArrayList<Order> currentCombination : allCombinations) {
-            int currentDiscount = Order.numberOfDiscount(currentCombination);
-            if (currentDiscount < minDiscount) {
-                minDiscount = currentDiscount;
-                bestCombination = new ArrayList<>(currentCombination);
+        if (k == orders.size() - 1) {
+            int currentDiscount = Order.numberOfDiscount(orders);
+            if (currentDiscount < leastDiscount[0]) {
+                leastDiscount[0] = currentDiscount;
+                bestOrderSequence.clear();
+                bestOrderSequence.addAll(orders);
             }
         }
+    }
+
+    public static ArrayList<Order> bruteForceDiscount(ArrayList<Order> allOrders) {
+        ArrayList<Order> bestCombination = new ArrayList<>();
+        int[] leastDiscount = {Integer.MAX_VALUE};
+        generateCombinations(allOrders, 0, bestCombination, leastDiscount);
         return bestCombination;
     }
 
+    /*--------------------------------------------------------------------------------------
+                                 GREEDY distance ALGORITHM
+      --------------------------------------------------------------------------------------*/
     public static ArrayList<Order> greedyDistance(ArrayList<Order> orders, Order orderToTake) {
         ArrayList<Order> bestCombination = new ArrayList<>();
         Order previousOrder = new Order(0, Pizzeria.PIZZERIA_LOCATION, LocalDateTime.now());
-        Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         while (!orders.isEmpty() && bestCombination.size() < 4) {
             double minDistance = Double.MAX_VALUE;
             int selectedIndex = -1;
@@ -64,48 +57,113 @@ public class SamuelAlgorithm {
                 orders.remove(selectedIndex);
             }
         }
-        bestCombination.add(0, mandatoryOrder);
+        bestCombination.add(0, orderToTake);
         return bestCombination;
     }
 
+    /*--------------------------------------------------------------------------------------
+                                 DYNAMIC discount ALGORITHM
+      --------------------------------------------------------------------------------------*/
+
     public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders, Order orderToTake) {
-        return null;
+        // Sort orders based on delivery time from Pizzeria.PIZZERIA_LOCATION in ascending order
+        orders.sort(Comparator.comparingDouble(order -> Pizzeria.PIZZERIA_LOCATION.timeTravel(order.location())));
+
+        // Create a list to store combinations of orders with 0 discount tickets
+        ArrayList<ArrayList<Order>> discountCombinations = new ArrayList<>();
+
+        // Iterate through each order
+        for (int i = 0; i < orders.size(); i++) {
+            // Create a combination with the first order
+            ArrayList<Order> currentCombination = new ArrayList<>();
+            currentCombination.add(orders.get(i));
+
+            // Find additional orders with 0 discount tickets to complete the combination
+            for (int j = i + 1; j < orders.size(); j++) {
+                if (Order.numberOfDiscount(currentCombination) == 0) {
+                    currentCombination.add(orders.get(j));
+                    if (currentCombination.size() == 4) {
+                        // Store the combination if it has exactly 4 orders
+                        discountCombinations.add(new ArrayList<>(currentCombination));
+                        break;  // Stop adding more orders once we have a combination of 4 orders
+                    }
+                }
+            }
+        }
+
+        // Find the combination with the least total discount
+        ArrayList<Order> bestCombination = null;
+        int minTotalDiscount = Integer.MAX_VALUE;
+
+        for (ArrayList<Order> combination : discountCombinations) {
+            int totalDiscount = Order.numberOfDiscount(combination);
+            if (totalDiscount < minTotalDiscount) {
+                minTotalDiscount = totalDiscount;
+                bestCombination = combination;
+            }
+        }
+
+        bestCombination.add(0, orderToTake);
+        return bestCombination;
     }
 
+    /*--------------------------------------------------------------------------------------
+                                        GENETIC time ALGORITHM
+      --------------------------------------------------------------------------------------*/
+
     public static ArrayList<Order> geneticTime(ArrayList<Order> orders, int populationSize, int generations, Order orderToTake) {
-        Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         ArrayList<ArrayList<Order>> population = generatePopulation(orders, populationSize);
+
         for (int generation = 0; generation < generations; generation++) {
             ArrayList<ArrayList<Order>> newPopulation = new ArrayList<>();
+
             for (int i = 0; i < populationSize; i++) {
-                ArrayList<Order> parent1 = selectParent(population);
-                ArrayList<Order> parent2 = selectParent(population);
+                if (population.size() > 1) {
+                    ArrayList<Order> parent1 = selectParent(population);
+                    ArrayList<Order> parent2 = selectParent(population);
 
-                ArrayList<Order> child = crossover(parent1, parent2);
-                mutate(child);
+                    ArrayList<Order> child = crossover(parent1, parent2);
+                    mutate(child);
 
-                newPopulation.add(child);
+                    newPopulation.add(child);
+                } else {
+                    // Handle the case where population size is 0 or 1
+                    // You may choose to add new individuals to the population in this case
+                    ArrayList<Order> newIndividual = generateIndividual(orders);
+                    newPopulation.add(newIndividual);
+                }
             }
 
             population = newPopulation;
         }
 
-        // Find the best individual in the final population
-        return findBestIndividual(population);
+        // Finding the best individual in the final population
+        ArrayList<Order> bestIndividual = findBestIndividual(population);
+        bestIndividual.add(0, orderToTake);
+        return bestIndividual;
     }
+
+    private static ArrayList<Order> generateIndividual(ArrayList<Order> orders) {
+        Random random = new Random();
+        ArrayList<Order> individual = new ArrayList<>();
+
+        for (int j = 0; j < 4; j++) {
+            Order randomOrder = orders.get(random.nextInt(orders.size()));
+            if (!individual.contains(randomOrder)) {
+                individual.add(randomOrder);
+            } else {
+                j--;
+            }
+        }
+
+        return individual;
+    }
+
 
     private static ArrayList<ArrayList<Order>> generatePopulation(ArrayList<Order> orders, int populationSize) {
         ArrayList<ArrayList<Order>> population = new ArrayList<>(populationSize);
-        Random random = new Random();
         for (int i = 0; i < populationSize; i++) {
-            ArrayList<Order> individual = new ArrayList<>();
-            // Add 4 random orders to the individual
-            for (int j = 0; j < 4; j++) {
-                Order randomOrder = orders.get(random.nextInt(orders.size()));
-                if (!individual.contains(randomOrder)) {
-                    individual.add(randomOrder);
-                }
-            }
+            ArrayList<Order> individual = generateIndividual(orders);
             population.add(individual);
         }
         return population;
@@ -123,7 +181,9 @@ public class SamuelAlgorithm {
                 throw (e);
             }
         }));
+
         ArrayList<Order> topPerformer = population.remove(0);
+
         return new ArrayList<>(topPerformer);
     }
 
@@ -167,13 +227,6 @@ public class SamuelAlgorithm {
 
         return child;
     }
-
-
-
-
-
-
-
 
     private static void mutate(ArrayList<Order> child) {
         Random random = new Random();

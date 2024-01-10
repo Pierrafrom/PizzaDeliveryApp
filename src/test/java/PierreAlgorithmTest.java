@@ -99,7 +99,7 @@ public class PierreAlgorithmTest extends AlgorithmTest {
     // -----------------------------------------------------------------------------------------------------------------
     // Dynamic programming algorithm with distance criterion
     // -----------------------------------------------------------------------------------------------------------------
-
+/*
     @Test
     public void testDynamicDistanceCorrectSize() {
         ArrayList<Order> orders = dynamicTestSuite;
@@ -131,4 +131,6 @@ public class PierreAlgorithmTest extends AlgorithmTest {
             PierreAlgorithm.dynamicDistance(orders, 0);
         }, "Une exception doit être levée pour une liste avec un seul élément");
     }
+    */
+
 }

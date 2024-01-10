@@ -19,8 +19,9 @@ public class DeliveryPerson {
         this.orders = new ArrayList<>();
     }
 
-    private void simulateDelivery() {
+    public void simulateDelivery() {
         //TO DO: implement the method
+        System.out.println("delivering orders... it will take "+Order.totalDeliveryTime(orders)+" minutes");
     }
 
     // Getters & Setters
@@ -45,32 +46,11 @@ public class DeliveryPerson {
         this.available = available;
     }
 
-    public List<Order> getOrders() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
 
     public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
-    }
-
-    // Other methods
-
-    public void addOrder(Order order) {
-        if (orders.size() < MAX_ORDERS) {
-            orders.add(order);
-            System.out.println("Commande ajoutée au livreur " + id);
-        } else {
-            System.out.println("Le livreur " + id + " a atteint le nombre maximum de commandes.");
-        }
-    }
-
-    public void completeDelivery(Order order) {
-        if (orders.contains(order)) {
-            orders.remove(order);
-            simulateDelivery();
-            System.out.println("Livraison complétée pour le livreur " + id);
-        } else {
-            System.out.println("La commande n'est pas attribuée à ce livreur.");
-        }
     }
 }

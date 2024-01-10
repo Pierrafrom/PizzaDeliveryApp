@@ -1,6 +1,7 @@
 package com.pizzadelivery.model;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -62,6 +63,12 @@ public class Order implements Serializable {
         }
         totalDistance += orders.get(orders.size() - 1).location().calculateDistance(Pizzeria.PIZZERIA_LOCATION);
         return totalDistance;
+    }
+
+    public boolean isCritical () {
+        Duration duration = Duration.between(time, LocalDateTime.now());
+        double waitingTime = duration.toMinutes();
+        return waitingTime+Pizzeria.PIZZERIA_LOCATION.timeTravel(location) > 30;
     }
 
     public String toString() {

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class SailorManAlgorithm {
 
@@ -20,7 +21,8 @@ public class SailorManAlgorithm {
 
     // Methods
 
-    public ArrayList<Integer> selectAlgorithm(ArrayList<Order> orders, int index) {
+    public static ArrayList<Order> selectAlgorithm(ArrayList<Order> orders, Order orderToTake) {
+        Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         // Selection of the algorithm type based on the number of elements in the list
         AlgorithmType algorithmType;
         if (orders.size() < GENETIC_SIZE) {
@@ -31,12 +33,49 @@ public class SailorManAlgorithm {
             algorithmType = AlgorithmType.GREEDY;
         }
 
-        // Call the selected algorithm with 3 criteria
-        // Return the list of indexes of the top 5 orders based on the specified criteria
-        // If grades are the same, return the result of DISCOUNT, then TIME, then DISTANCE
-        // ...
+        int grade1 = 0;
+        int grade2 = 0;
+        int grade3 = 0;
+        ArrayList<Order> comb1 = new ArrayList<>();
+        ArrayList<Order> comb2 = new ArrayList<>();
+        ArrayList<Order> comb3 = new ArrayList<>();
+        switch(algorithmType) {
+            case DYNAMIC -> {
+                comb1 = SamuelAlgorithm.dynamicDiscount(orders, mandatoryOrder);
+                comb2 = PierreAlgorithm.dynamicDistance(orders, mandatoryOrder);
+                //comb3 = RemiAlgorithm.dynamicTime(orders, orderToTake);
+                grade1 = calculateGrade(comb1);
+                grade2 = calculateGrade(comb2);
+                //grade3 = calculateGrade(comb3);
+            }
+            case GENETIC -> {
+                comb1 = SamuelAlgorithm.geneticTime(orders, 15, 4, mandatoryOrder);
+                //comb2 = PierreAlgorithm.geneticDiscount(orders, 15, 4,orderToTake);
+                //comb3 = RemiAlgorithm.geneticDistance(orders, 15, 4,orderToTake);
+                grade1 = calculateGrade(comb1);
+                //grade2 = calculateGrade(comb2);
+                //grade3 = calculateGrade(comb3);
+            }
+            case GREEDY -> {
+                comb1 = SamuelAlgorithm.greedyDistance(orders, mandatoryOrder);
+                comb2 = PierreAlgorithm.greedyTime(orders, 0);// REPLACE 0 BY mandatoryOrder WHEN THE METHOD WILL BE UPDATED
+                //comb3 = RemiAlgorithm.greedyDiscount(orders, orderToTake);
+                grade1 = calculateGrade(comb1);
+                grade2 = calculateGrade(comb2);
+                //grade3 = calculateGrade(comb3);
+            }
+        }
+        ArrayList<Order> maxComb;
+        int maxGrade = Math.max(Math.max(grade1, grade2), grade3);
 
-        return new ArrayList<>(); // Placeholder, replace with actual result
+        if (maxGrade == grade1) {
+            maxComb = comb1;
+        } else if (maxGrade == grade2) {
+            maxComb = comb2;
+        } else {
+            maxComb = comb3;
+        }
+        return maxComb;
     }
 
     public static int calculateGrade(ArrayList<Order> orders) {
@@ -73,12 +112,34 @@ public class SailorManAlgorithm {
         return grade;
     }
 
-    public void sortOrders(ArrayList<Order> orders) {
+    public static void sortOrders(ArrayList<Order> orders) {
         // Call each BRUTE_FORCE algorithm on a copy of the list to find the best grade among the 3 criteria
         // If grades are the same, return the result of DISCOUNT, then TIME, then DISTANCE
         // Sort the original list based on the best criterion (maximum grade)
         // ...
+        // Call each BRUTE_FORCE algorithm on a copy of the list to find the best grade among the 3 criteria
+        ArrayList<Order> copyOrders = new ArrayList<>(orders);
 
-        // Placeholder, implement the logic
+        ArrayList<Order> comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(copyOrders));
+        ArrayList<Order> comb2 = PierreAlgorithm.bruteForceTime(new ArrayList<>(copyOrders));
+        ArrayList<Order> comb3 = new ArrayList<>();//RemiAlgorithm.bruteForceDistance(new ArrayList<>(copyOrders));
+
+        int grade1 = calculateGrade(comb1);
+        int grade2 = calculateGrade(comb2);
+        int grade3 = 0;// calculateGrade(comb3);
+
+        // If grades are the same, return the result of DISCOUNT, then TIME, then DISTANCE
+        if (grade1 == grade2 && grade2 == grade3) {
+            // TO-DO
+        } else {
+            // Sort the original list based on the best criterion (maximum grade)
+            if (grade1 >= grade2 && grade1 >= grade3) {
+                orders = new ArrayList<>(comb1);
+            } else if (grade2 >= grade1 && grade2 >= grade3) {
+                orders = new ArrayList<>(comb2);
+            } else {
+                orders = new ArrayList<>(comb3);
+            }
+        }
     }
 }
