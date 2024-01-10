@@ -1,11 +1,7 @@
 package com.pizzadelivery.model;
 
-import java.sql.Array;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Logger;
 
 
@@ -27,8 +23,9 @@ public class SamuelAlgorithm {
     }
 
     // Wrapper method for the initial call
-    public static void generateCombinations(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations) {
+    public static ArrayList<ArrayList<Order>> generateCombinations(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations) {
         generateCombinations(orders, 0, 0, new ArrayList<>(), allCombinations);
+        return allCombinations;
     }
 
 
@@ -45,11 +42,11 @@ public class SamuelAlgorithm {
         return bestCombination;
     }
 
-    public static ArrayList<Order> greedyDistance(ArrayList<Order> orders) {
+    public static ArrayList<Order> greedyDistance(ArrayList<Order> orders, Order orderToTake) {
         ArrayList<Order> bestCombination = new ArrayList<>();
         Order previousOrder = new Order(0, Pizzeria.PIZZERIA_LOCATION, LocalDateTime.now());
-
-        while (!orders.isEmpty() && bestCombination.size() < 5) {
+        Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
+        while (!orders.isEmpty() && bestCombination.size() < 4) {
             double minDistance = Double.MAX_VALUE;
             int selectedIndex = -1;
 
@@ -67,69 +64,17 @@ public class SamuelAlgorithm {
                 orders.remove(selectedIndex);
             }
         }
-
+        bestCombination.add(0, mandatoryOrder);
         return bestCombination;
     }
 
-    public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders) {
-        ArrayList<ArrayList<Order>> allCombinations = new ArrayList<>();
-        generateCombinations(orders, allCombinations);
-
-        if (allCombinations.isEmpty()) {
-            return null;
-        }
-
-        int n = allCombinations.size();
-        int[] tab = new int[n];
-        int[] allDiscounts = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            tab[i] = -1; // Initialize tab array with -1 to indicate that the value is not memoized
-            allDiscounts[i] = -1; // Initialize allDiscounts array with -1 to indicate that the value is not memoized
-        }
-
-        // Populate the allDiscounts array using memoization
-        for (int i = 0; i < n; i++) {
-            allDiscounts[i] = memoizedCalculateDiscount(allCombinations.get(i), allCombinations, allDiscounts);
-        }
-
-        // Continue with the dynamic programming approach
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                int discountI = allDiscounts[i];
-                int discountJ = allDiscounts[j];
-
-                // Compare the discounts and update tab[i] if the current combination has a lower discount
-                if (discountI < discountJ && tab[i] < tab[j] + 1) {
-                    tab[i] = tab[j] + 1;
-                }
-            }
-        }
-
-        // Find the maximum length in the tab array, which represents the index of the best combination
-        int maxDiscountIndex = 0;
-        for (int i = 1; i < n; i++) {
-            if (tab[i] > tab[maxDiscountIndex]) {
-                maxDiscountIndex = i;
-            }
-        }
-
-        return allCombinations.get(maxDiscountIndex);
+    public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders, Order orderToTake) {
+        return null;
     }
 
-    private static int memoizedCalculateDiscount(ArrayList<Order> orders, ArrayList<ArrayList<Order>> allCombinations,
-                                                 int[] allDiscounts) {
-        int index = allCombinations.indexOf(orders);
-        if (allDiscounts[index] == -1) {
-            allDiscounts[index] = Order.numberOfDiscount(orders);
-        }
-        return allDiscounts[index];
-    }
-
-
-    public static ArrayList<Order> geneticTime(ArrayList<Order> orders, int populationSize, int generations) {
+    public static ArrayList<Order> geneticTime(ArrayList<Order> orders, int populationSize, int generations, Order orderToTake) {
+        Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         ArrayList<ArrayList<Order>> population = generatePopulation(orders, populationSize);
-
         for (int generation = 0; generation < generations; generation++) {
             ArrayList<ArrayList<Order>> newPopulation = new ArrayList<>();
             for (int i = 0; i < populationSize; i++) {
@@ -151,20 +96,21 @@ public class SamuelAlgorithm {
 
     private static ArrayList<ArrayList<Order>> generatePopulation(ArrayList<Order> orders, int populationSize) {
         ArrayList<ArrayList<Order>> population = new ArrayList<>(populationSize);
-        ArrayList<Order> individual = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < populationSize; i++) {
-            for (int j = 0; individual.size() < 5; j++) {
-                Order randomOrder = orders.get(random.nextInt(orders.size()) + 1);
+            ArrayList<Order> individual = new ArrayList<>();
+            // Add 4 random orders to the individual
+            for (int j = 0; j < 4; j++) {
+                Order randomOrder = orders.get(random.nextInt(orders.size()));
                 if (!individual.contains(randomOrder)) {
                     individual.add(randomOrder);
                 }
             }
             population.add(individual);
-            individual.clear();
         }
         return population;
     }
+
 
 
     private static ArrayList<Order> selectParent(ArrayList<ArrayList<Order>> population) {
@@ -190,47 +136,44 @@ public class SamuelAlgorithm {
      * @return A new child individual resulting from the crossover operation.
      */
     private static ArrayList<Order> crossover(ArrayList<Order> parent1, ArrayList<Order> parent2) {
-        Random random = new Random();
-        // Retrieving the size of the individuals
         int size = parent1.size();
+        ArrayList<Order> child = new ArrayList<>(Collections.nCopies(size, null));
 
-        // Randomly selecting a start and end position for crossover
-        int start = random.nextInt(size);
-        int end = random.nextInt(size);
-
+        // Step 1: Select a subset of genes (crossover segment)
+        int start = new Random().nextInt(size);
+        int end = new Random().nextInt(size);
         if (end < start) {
             int temp = start;
             start = end;
             end = temp;
         }
 
-        // Creating a child with the orders from parent1
-        ArrayList<Order> child = new ArrayList<>(Collections.nCopies(size, null));
+        // Step 2: Copy the crossover segment from parent1 to the child
         for (int i = start; i <= end; i++) {
             child.set(i, parent1.get(i));
         }
 
-        // Filling in the remaining positions in the child with orders from parent2
-        int currentIndex = 0;
+        // Step 3: Fill in the remaining positions with genes from parent2, avoiding duplicates
+        int currentIndex = (end + 1) % size;
         for (int i = 0; i < size; i++) {
-            // If the current index reaches the start position, moving to the end of the crossover segment
-            if (currentIndex == start) {
-                currentIndex = end + 1;
-            }
-
-            // Retrieving the order from parent2 at the current position
-            Order currentOrder = parent2.get(i);
-
-            // If the child is not already containing the order, adding it to the child at the current index
-            if (!child.contains(currentOrder)) {
-                child.set(currentIndex, currentOrder);
-                currentIndex = (currentIndex + 1) % size;
+            if (child.get(currentIndex) == null) {
+                Order currentOrder = parent2.get(i);
+                if (!child.contains(currentOrder)) {
+                    child.set(currentIndex, currentOrder);
+                    currentIndex = (currentIndex + 1) % size;
+                }
             }
         }
 
-        // Return the resulting child individual after crossover
         return child;
     }
+
+
+
+
+
+
+
 
     private static void mutate(ArrayList<Order> child) {
         Random random = new Random();
@@ -255,8 +198,8 @@ public class SamuelAlgorithm {
     private static ArrayList<Order> findBestIndividual(ArrayList<ArrayList<Order>> population) {
         double minTime = Integer.MAX_VALUE;
         ArrayList<Order> minArray = new ArrayList<>();
-        for (int i = 0; i < population.size(); i++) {
-            if (Order.totalDeliveryTime(population.get(i)) < minTime) {
+        for (int i = 0; i< population.size(); i++) {
+            if (Order.totalDeliveryTime(population.get(i))<minTime) {
                 minTime = Order.totalDeliveryTime(population.get(i));
                 minArray = population.get(i);
             }
