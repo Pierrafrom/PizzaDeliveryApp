@@ -232,7 +232,7 @@ public record GPS(double latitude, double longitude) implements Serializable {
 
     private static void startApiCooldown() {
         isApiInCooldown = true;
-
+        System.out.println("API is in cooldown");
         new Thread(() -> {
             try {
                 Thread.sleep(API_COOLDOWN_TIME_MS);
