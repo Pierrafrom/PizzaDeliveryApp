@@ -131,7 +131,7 @@ public class PierreAlgorithm {
         // Appel initial
         Set<Set<Order>> allSubsets = new HashSet<>();
         generateSubsets(orders, size, 0, new HashSet<>(Collections.singletonList(mandatoryOrder)), allSubsets, mandatoryOrder);
-        System.out.println("Nombre de sous-ensembles de taille " + size + ": " + allSubsets.size()); // Pour le débogage
+        //System.out.println("Nombre de sous-ensembles de taille " + size + ": " + allSubsets.size()); // Pour le débogage
         return allSubsets;
     }
 

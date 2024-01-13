@@ -71,7 +71,9 @@ public class SailorManAlgorithm {
         ArrayList<Order> maxComb;
         int maxGrade = Math.max(Math.max(grade1, grade2), grade3);
 
-        if (maxGrade == grade1) {
+        if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
+            maxComb = getPriorityComb(comb1, comb2, comb3);
+        } else if (maxGrade == grade1) {
             maxComb = comb1;
             System.out.println("Samuel's algorithm grade: " + grade1);
         } else if (maxGrade == grade2) {
@@ -83,6 +85,54 @@ public class SailorManAlgorithm {
         }
         return maxComb;
     }
+
+    private static ArrayList<Order> getPriorityComb(ArrayList<Order> comb1, ArrayList<Order> comb2, ArrayList<Order> comb3) {
+        int discountsForComb1 = Order.numberOfDiscount(comb1);
+        int discountsForComb2 = Order.numberOfDiscount(comb2);
+        int discountsForComb3 = Order.numberOfDiscount(comb3);
+
+        if (discountsForComb1 == discountsForComb2) {
+            // In case of equality in discounts between comb1 and comb2
+            double totalTimeComb1 = Order.totalDeliveryTime(comb1);
+            double totalTimeComb2 = Order.totalDeliveryTime(comb2);
+
+            if (totalTimeComb1 <= totalTimeComb2) {
+                return comb1;
+            } else {
+                return comb2;
+            }
+        } else if (discountsForComb2 == discountsForComb3) {
+            // In case of equality in discounts between comb2 and comb3
+            double totalTimeComb2 = Order.totalDeliveryTime(comb2);
+            double totalTimeComb3 = Order.totalDeliveryTime(comb3);
+
+            if (totalTimeComb2 <= totalTimeComb3) {
+                return comb2;
+            } else {
+                return comb3;
+            }
+        } else if (discountsForComb1 == discountsForComb3) {
+            // In case of equality in discounts between comb1 and comb3
+            double totalTimeComb1 = Order.totalDeliveryTime(comb1);
+            double totalTimeComb3 = Order.totalDeliveryTime(comb3);
+
+            if (totalTimeComb1 <= totalTimeComb3) {
+                return comb1;
+            } else {
+                return comb3;
+            }
+        } else {
+            // If no equality, return the combination with the maximum discounts
+            if (discountsForComb1 >= discountsForComb2 && discountsForComb1 >= discountsForComb3) {
+                return comb1;
+            } else if (discountsForComb2 >= discountsForComb1 && discountsForComb2 >= discountsForComb3) {
+                return comb2;
+            } else {
+                return comb3;
+            }
+        }
+    }
+
 
     public static int calculateGrade(ArrayList<Order> orders) {
         int grade = 0;
@@ -109,8 +159,7 @@ public class SailorManAlgorithm {
 
         for (int i = 0; i < noteMaxTimes.length; i++) {
             if (totalTime >= noteMaxTimes[i]) {
-                grade += 10 - i;
-                break;
+                grade = 10 - i;
             }
         }
         grade += 2 * (5 - totalDiscount);
@@ -125,6 +174,7 @@ public class SailorManAlgorithm {
         // Sort the original list based on the best criterion (maximum grade)
         // ...
         // Call each BRUTE_FORCE algorithm on a copy of the list to find the best grade among the 3 criteria
+
         ArrayList<Order> copyOrders = new ArrayList<>(orders);
 
         ArrayList<Order> comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(copyOrders));
@@ -135,18 +185,20 @@ public class SailorManAlgorithm {
         int grade2 = calculateGrade(comb2);
         int grade3 = calculateGrade(comb3);
 
-        // If grades are the same, return the result of DISCOUNT, then TIME, then DISTANCE
-        if (grade1 == grade2 && grade2 == grade3) {
-            // TO-DO
+        int maxGrade = Math.max(Math.max(grade1, grade2), grade3);
+
+        if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
+            System.out.println("two or more grades are equals to maxGrade");
+            orders = getPriorityComb(comb1, comb2, comb3);
+        } else if (maxGrade == grade1) {
+            orders = comb1;
+            System.out.println("Samuel's brute force algorithm grade: " + grade1);
+        } else if (maxGrade == grade2) {
+            orders = comb2;
+            System.out.println("Pierre's brute force algorithm grade: " + grade2);
         } else {
-            // Sort the original list based on the best criterion (maximum grade)
-            if (grade1 >= grade2 && grade1 >= grade3) {
-                orders = new ArrayList<>(comb1);
-            } else if (grade2 >= grade1 && grade2 >= grade3) {
-                orders = new ArrayList<>(comb2);
-            } else {
-                orders = new ArrayList<>(comb3);
-            }
+            orders = comb3;
+            System.out.println("Remi's brute force algorithm grade: " + grade3);
         }
     }
 }
