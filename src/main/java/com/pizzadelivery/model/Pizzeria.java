@@ -13,7 +13,7 @@ public class Pizzeria {
         orders = new ArrayList<>();
         deliveryTeam = new ArrayList<>();
         for(int i = 0; i<DELIVERY_TEAM_SIZE; i++) {
-            deliveryTeam.add(new DeliveryPerson(i,"kin","tama"));
+            deliveryTeam.add(new DeliveryPerson(i+1,"kin","tama"));
         }
     }
 
