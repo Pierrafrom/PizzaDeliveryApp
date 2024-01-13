@@ -51,3 +51,4 @@ public class PierreAlgorithmTest extends AlgorithmTest {
         // Add assertions to check if the selected orders are the expected ones
     }
 }
+
