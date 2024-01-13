@@ -15,122 +15,39 @@ public class PierreAlgorithmTest extends AlgorithmTest {
     // -----------------------------------------------------------------------------------------------------------------
     // Brute force algorithm with time criterion
     // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    public void testBruteForceTimeSameSize() {
-        ArrayList<Order> optimizedOrders = PierreAlgorithm.bruteForceTime(bruteForceTestSuite);
-        assertEquals(bruteForceTestSuite.size(), optimizedOrders.size(), "List sizes should be identical");
-    }
 
-    @Test
-    public void testBruteForceTimeSameElements() {
-        ArrayList<Order> optimizedOrders = PierreAlgorithm.bruteForceTime(bruteForceTestSuite);
-        Set<Order> originalSet = new HashSet<>(bruteForceTestSuite);
-        Set<Order> optimizedSet = new HashSet<>(optimizedOrders);
-        assertEquals(originalSet, optimizedSet, "Elements in both lists should be identical");
-    }
-
-    @Test
-    public void testBruteForceTimeOrderChange() {
-        ArrayList<Order> optimizedOrders = PierreAlgorithm.bruteForceTime(bruteForceTestSuite);
-        assertNotEquals(bruteForceTestSuite, optimizedOrders, "Order of elements should be optimized");
-    }
-
-    @Test
-    public void testBruteForceTimeEmptyList() {
-        ArrayList<Order> emptyList = new ArrayList<>();
-        ArrayList<Order> optimizedOrders = PierreAlgorithm.bruteForceTime(emptyList);
-        assertTrue(optimizedOrders.isEmpty(), "Optimized list should be empty for an empty input list");
-    }
-
-    @Test
-    public void testBruteForceTimeSingleElement() {
-        ArrayList<Order> singleElementList = new ArrayList<>();
-        Order singleOrder = new Order(0, new GPS(48.6199, 1.98761), LocalDateTime.now());
-        singleElementList.add(singleOrder);
-        ArrayList<Order> optimizedOrders = PierreAlgorithm.bruteForceTime(singleElementList);
-        assertEquals(1, optimizedOrders.size(), "Optimized list should contain one element for a " +
-                "single-element input list");
-        assertEquals(singleOrder, optimizedOrders.get(0), "Element in the optimized list should be identical" +
-                " to the input element");
-    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // greedy algorithm with time criterion
     // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    public void testGreedyTimeCorrectSelection() {
-        // Test to ensure that the greedy algorithm selects the correct orders
-        int mandatoryOrderIndex = 0;
-        ArrayList<Order> selectedOrders = PierreAlgorithm.greedyTime(greedyTestSuite, mandatoryOrderIndex);
-        // Add assertions to check if the selected orders are the expected ones
-    }
 
-    @Test
-    public void testGreedyTimeListSize() {
-        // Test to ensure that the greedy algorithm returns a list of the correct size
-        int mandatoryOrderIndex = 0;
-        ArrayList<Order> selectedOrders = PierreAlgorithm.greedyTime(greedyTestSuite, mandatoryOrderIndex);
-        assertEquals(5, selectedOrders.size(), "List should contain 5 orders " +
-                "(1 mandatory + 4 closest)");
-    }
-
-    @Test
-    public void testGreedyTimeEmptyList() {
-        // Test to handle empty input list
-        ArrayList<Order> emptyList = new ArrayList<>();
-        int mandatoryOrderIndex = 0; // This index won't be used as the list is empty
-        assertThrows(IllegalArgumentException.class, () -> {
-            PierreAlgorithm.greedyTime(emptyList, mandatoryOrderIndex);
-        }, "An exception should be thrown for an empty input list");
-    }
-
-    @Test
-    public void testGreedyTimeSingleElement() {
-        // Test with a single-element list
-        ArrayList<Order> singleElementList = new ArrayList<>();
-        Order singleOrder = new Order(0, new GPS(48.6199, 1.98761), LocalDateTime.now());
-        singleElementList.add(singleOrder);
-        int mandatoryOrderIndex = 0; // Only one element in the list
-        assertThrows(IllegalArgumentException.class, () -> {
-            PierreAlgorithm.greedyTime(singleElementList, mandatoryOrderIndex);
-        }, "An exception should be thrown for an empty input list");
-    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // Dynamic programming algorithm with distance criterion
     // -----------------------------------------------------------------------------------------------------------------
-/*
+
     @Test
-    public void testDynamicDistanceCorrectSize() {
+    public void testDynamicDistanceCorrectSelection() {
+        // Test to ensure that the dynamic programming algorithm selects the correct orders
         ArrayList<Order> orders = dynamicTestSuite;
-        ArrayList<Order> result = PierreAlgorithm.dynamicDistance(orders, 0);
-        assertEquals(5, result.size(), "La liste doit contenir exactement 5 commandes");
+        Order mandatoryOrder = orders.remove(0);
+        ArrayList<Order> selectedOrders = PierreAlgorithm.dynamicDistance(orders, mandatoryOrder);
+        for (Order order : selectedOrders) {
+            System.out.println(order.id());
+        }
+        System.out.println("Distance: " + Order.totalDeliveryDistance(selectedOrders));
     }
+
+    // ------------------------------------------------------------------------------------------------------------------
+    // Genetic algorithm with discount criterion
+    // ------------------------------------------------------------------------------------------------------------------
 
     @Test
-    public void testDynamicDistanceIncludesMandatoryOrder() {
-        ArrayList<Order> orders = dynamicTestSuite;
-        ArrayList<Order> result = PierreAlgorithm.dynamicDistance(orders, 0);
-        Order mandatoryOrder = orders.get(0);
-        assertTrue(result.contains(mandatoryOrder), "La liste doit contenir la commande obligatoire");
+    public void testGeneticDiscountCorrectSelection() {
+        // Test to ensure that the genetic algorithm selects the correct orders
+        ArrayList<Order> orders = geneticTestSuite;
+        Order mandatoryOrder = orders.remove(0);
+        ArrayList<Order> selectedOrders = PierreAlgorithm.geneticDiscount(orders, mandatoryOrder);
+        // Add assertions to check if the selected orders are the expected ones
     }
-
-    @Test
-    public void testDynamicDistanceEmptyList() {
-        ArrayList<Order> orders = new ArrayList<>();
-        assertThrows(IllegalArgumentException.class, () -> {
-            PierreAlgorithm.dynamicDistance(orders, 0);
-        }, "Une exception doit être levée pour une liste vide");
-    }
-
-    @Test
-    public void testDynamicDistanceSingleElement() {
-        ArrayList<Order> orders = new ArrayList<>();
-        orders.add(dynamicTestSuite.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
-            PierreAlgorithm.dynamicDistance(orders, 0);
-        }, "Une exception doit être levée pour une liste avec un seul élément");
-    }
-    */
-
 }

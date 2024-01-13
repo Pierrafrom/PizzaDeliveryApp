@@ -20,6 +20,10 @@ public class Order implements Serializable {
         return order1.location().timeTravel(order2.location());
     }
 
+    public static double calculateDeliveryDistance(Order order1, Order order2) {
+        return order1.location().calculateDistance(order2.location());
+    }
+
     public static int numberOfDiscount(ArrayList<Order> orders) {
         int discountCount = 0;
         double deliveryTime = Pizzeria.PIZZERIA_LOCATION.timeTravel(orders.get(0).location());
