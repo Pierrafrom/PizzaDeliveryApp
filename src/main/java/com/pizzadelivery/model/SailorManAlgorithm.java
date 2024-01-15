@@ -2,19 +2,38 @@ package com.pizzadelivery.model;
 
 import java.util.ArrayList;
 
+/**
+ * The SailorManAlgorithm class provides methods for selecting and sorting orders based on different algorithms.
+ * It includes brute force, dynamic, genetic, and greedy algorithms for order selection.
+ * The class also provides a method to calculate the grade of a given set of orders.
+ * <p>
+ * This class can call all of our algorithm in our three individual classes:
+ * For the moment Remi's algorithm are not used in the whole class because we have some
+ * trouble with them.
+ * @see SamuelAlgorithm
+ * @see PierreAlgorithm
+ * @see RemiAlgorithm
+ *
+ * @author Team
+ */
 public class SailorManAlgorithm {
 
     // Enumerations
-    public enum Criteria {TIME, DISTANCE, DISCOUNT}
-
     public enum AlgorithmType {BRUTE_FORCE, DYNAMIC, GENETIC, GREEDY}
 
     // Constants
     public static final int GREEDY_SIZE = 50;
     public static final int GENETIC_SIZE = 20;
 
-    // Methods
-
+    /**
+     * Selects an algorithm based on the number of orders and applies it to select the optimal combination of orders.
+     * The selected algorithm is chosen from BRUTE_FORCE, DYNAMIC, GENETIC, and GREEDY based on the size of the order list.
+     *
+     * @param orders         The list of orders to select from.
+     * @param orderToTake    The order that must be included in the selected combination.
+     * @return The selected combination of orders based on the chosen algorithm.
+     * @throws IllegalArgumentException If the orderToTake is not present in the list of orders.
+     */
     public static ArrayList<Order> selectAlgorithm(ArrayList<Order> orders, Order orderToTake) {
         if (!orders.contains(orderToTake)) {
             throw new IllegalArgumentException("Order to take is not in the list");
@@ -103,6 +122,15 @@ public class SailorManAlgorithm {
         return maxComb;
     }
 
+    /**
+     * Selects the priority combination among the provided combinations based on discounts, total delivery time, and distance.
+     * The method compares the number of discounts in each combination and, in case of a tie, compares the total delivery time.
+     * The combination with either the maximum discounts or the lower total delivery time is selected.
+     *
+     * @param comb1 The first combination of orders to be considered.
+     * @param comb2 The second combination of orders to be considered.
+     * @return The selected combination with the highest priority based on discounts and total delivery time.
+     */
     private static ArrayList<Order> getPriorityComb
             (ArrayList<Order> comb1, ArrayList<Order> comb2/*,ArrayList<Order> comb3*/) {
         int discountsForComb1 = Order.numberOfDiscount(comb1);
@@ -156,6 +184,12 @@ public class SailorManAlgorithm {
     }
 
 
+    /**
+     * Calculates the grade of a given combination of orders based on delivery time and the number of discounts.
+     *
+     * @param orders The list of orders to calculate the grade for.
+     * @return The calculated grade for the given combination of orders.
+     */
     public static int calculateGrade(ArrayList<Order> orders) {
         int grade = 0;
         double totalTime = Order.totalDeliveryTime(orders);
@@ -184,6 +218,12 @@ public class SailorManAlgorithm {
         return grade;
     }
 
+    /**
+     * Sorts the given list of orders using a brute force algorithm based on discount, time, and distance.
+     * The algorithm selects the combination of orders with the highest grade.
+     *
+     * @param orders The list of orders to be sorted.
+     */
     public static void sortOrders(ArrayList<Order> orders) {
         System.out.println("Brute force sort");
         ArrayList<Order> copyOrders = new ArrayList<>(orders);

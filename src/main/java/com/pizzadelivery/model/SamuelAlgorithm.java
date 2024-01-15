@@ -5,6 +5,26 @@ import java.util.*;
 import java.util.logging.Logger;
 
 
+/**
+ * The {@code SamuelAlgorithm} class provides implementations of various algorithms
+ * for selecting optimal combinations of orders based on different criteria.
+ * These algorithms include:
+ * - Brute-force algorithm to minimize discounts
+ * - Greedy algorithm to minimize total distance traveled
+ * - Dynamic programming algorithm to minimize discounts and consider delivery times
+ * - Genetic algorithm to minimize total delivery time
+ * <p>
+ * Each algorithm is designed to solve the "Pizza Delivery" problem, where a set of orders
+ * needs to be assigned to delivery personnel to optimize certain criteria.
+ * <p>
+ * This class also includes utility methods for generating combinations, calculating grades,
+ * and sorting orders using the brute-force algorithm.
+ *
+ * @author Samuel
+ * @see Order
+ * @see Pizzeria
+ * @see Grades
+ */
 public class SamuelAlgorithm {
     /*--------------------------------------------------------------------------------------
                                   BRUTE FORCE discount ALGORITHM

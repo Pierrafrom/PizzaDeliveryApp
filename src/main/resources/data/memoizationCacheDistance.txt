@@ -801,3 +801,13 @@ GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,641872, longitude=2,
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,647051, longitude=2,037003}:19.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,711729, longitude=2,165678}:5.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,677114, longitude=2,060755}:14.0
+48,685079, longitude=2,030520}:19.0
+GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,677114, longitude=2,060755}:4.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,741207, longitude=2,111275}:12.0
+GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,677114, longitude=2,060755}:12.0
+de=2,037003}:18.0
+GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,681144, longitude=1,995977}:10.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,641872, longitude=2,215254}:11.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,647051, longitude=2,037003}:19.0
+GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,711729, longitude=2,165678}:5.0
+GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,677114, longitude=2,060755}:14.0

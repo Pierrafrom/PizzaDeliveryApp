@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ *
+ * @author Remi
+ */
 public class RemiAlgorithm {
     //////////////////////////////////////////////////////////////////////////////////
 /////////////////    BRUTE FORCE PROGRAMMING ALGORITHM ///////////////////////////

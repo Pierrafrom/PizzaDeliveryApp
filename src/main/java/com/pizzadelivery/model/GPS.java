@@ -20,6 +20,8 @@ import static java.lang.Math.round;
 /**
  * Represents a GPS location with latitude and longitude coordinates.
  * Provides methods to calculate distance and time travel to another GPS location.
+ *
+ * @author Team
  */
 public record GPS(double latitude, double longitude) implements Serializable {
     private static final Path FILE_PATH = Paths.get("src/main/resources/data/");
