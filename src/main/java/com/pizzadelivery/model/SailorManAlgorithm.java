@@ -31,10 +31,11 @@ public class SailorManAlgorithm {
      *
      * @param orders         The list of orders to select from.
      * @param orderToTake    The order that must be included in the selected combination.
+     * @param bestGrade      The best grade of the current list of orders.
      * @return The selected combination of orders based on the chosen algorithm.
      * @throws IllegalArgumentException If the orderToTake is not present in the list of orders.
      */
-    public static ArrayList<Order> selectAlgorithm(ArrayList<Order> orders, Order orderToTake) {
+    public static ArrayList<Order> selectAlgorithm(ArrayList<Order> orders, Order orderToTake, int bestGrade) {
         if (!orders.contains(orderToTake)) {
             throw new IllegalArgumentException("Order to take is not in the list");
         }
@@ -225,8 +226,9 @@ public class SailorManAlgorithm {
      * The algorithm selects the combination of orders with the highest grade.
      *
      * @param orders The list of orders to be sorted.
+     * @param bestGrade The best grade of the current list of orders.
      */
-    public static void sortOrders(ArrayList<Order> orders) {
+    public static void sortOrders(ArrayList<Order> orders, int bestGrade) {
         System.out.println("Brute force sort");
         ArrayList<Order> copyOrders = new ArrayList<>(orders);
         ArrayList<Order> comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(copyOrders));
@@ -239,19 +241,21 @@ public class SailorManAlgorithm {
 
         int maxGrade = Math.max(Math.max(grade1, grade2), grade3);
 
-        if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
-            System.out.println("two or more grades are equals to maxGrade");
-            //orders = getPriorityComb(comb1, comb2, comb3);
-            orders = getPriorityComb(comb1, comb2);
-        } else if (maxGrade == grade1) {
-            orders = comb1;
-            System.out.println("Samuel's brute force algorithm grade: " + grade1);
-        } else /*if (maxGrade == grade2)*/ {
-            orders = comb2;
-            System.out.println("Pierre's brute force algorithm grade: " + grade2);
-        } /*else {
-            orders = comb3;
-            System.out.println("Remi's brute force algorithm grade: " + grade3);
-        } */
+        if(bestGrade < maxGrade) {
+            if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
+                System.out.println("two or more grades are equals to maxGrade");
+                //orders = getPriorityComb(comb1, comb2, comb3);
+                orders = getPriorityComb(comb1, comb2);
+            } else if (maxGrade == grade1) {
+                orders = comb1;
+                System.out.println("Samuel's brute force algorithm grade: " + grade1);
+            } else /*if (maxGrade == grade2)*/ {
+                orders = comb2;
+                System.out.println("Pierre's brute force algorithm grade: " + grade2);
+            } /*else {
+                    orders = comb3;
+                    System.out.println("Remi's brute force algorithm grade: " + grade3);
+                } */
+        }
     }
 }

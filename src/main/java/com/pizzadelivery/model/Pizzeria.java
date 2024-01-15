@@ -63,9 +63,10 @@ public class Pizzeria {
                 System.out.println("Order " + order.id() + " is critical and must be delivered");
                 ArrayList<Order> copy = new ArrayList<>(orders);
                 copy.removeAll(toRemove);
-                ArrayList<Order> ordersToDeliver = SailorManAlgorithm.selectAlgorithm(copy, order);
+                int bestGrade = 0;
+                ArrayList<Order> ordersToDeliver = SailorManAlgorithm.selectAlgorithm(copy, order, bestGrade);
 
-                SailorManAlgorithm.sortOrders(ordersToDeliver);
+                SailorManAlgorithm.sortOrders(ordersToDeliver, bestGrade);
                 assignOrdersToDeliveryPerson(ordersToDeliver);
 
                 toRemove.addAll(ordersToDeliver);

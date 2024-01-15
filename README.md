@@ -77,7 +77,8 @@ The project follows the Maven directory structure:
 
 4. `Order`: Represents a pizza order, including location, timestamp, and details.
 
-5. `GPS`: Provides utility methods for geographical calculations, such as distance between two points.
+5. `GPS`: Provides utility methods for geographical calculations, such as distance between two points. In this class we 
+    are logging API errors.
 
 6. `SaveableHashMap`: Extends the `HashMap` class to provide persistent storage of key-value pairs.
 
