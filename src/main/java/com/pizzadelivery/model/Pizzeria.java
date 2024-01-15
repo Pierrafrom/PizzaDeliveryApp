@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 /**
  * Represents a Pizzeria with a delivery team and a list of orders.
  * The Pizzeria class is responsible for processing and delivering orders.
+ *
+ * @author Team
  */
 public class Pizzeria {
     private final ArrayList<DeliveryPerson> deliveryTeam;

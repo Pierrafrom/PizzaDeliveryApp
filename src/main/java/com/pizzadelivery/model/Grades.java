@@ -4,6 +4,8 @@ package com.pizzadelivery.model;
  * The Grades interface defines constants representing the maximum delivery times
  * associated with different grades for pizza delivery orders.
  * The delivery times are in minutes.
+ *
+ * @author Team
  */
 public interface Grades {
     int NOTE_10_MAX_TIME = 60;  // 60 minutes

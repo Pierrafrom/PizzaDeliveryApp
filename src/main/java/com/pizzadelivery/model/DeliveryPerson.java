@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 /**
  * Represents a delivery person in the pizzeria delivery system.
  * This class handles the delivery of orders and manages the availability status of the delivery person.
+ *
+ * @author Team
  */
 public class DeliveryPerson {
     private final int id;

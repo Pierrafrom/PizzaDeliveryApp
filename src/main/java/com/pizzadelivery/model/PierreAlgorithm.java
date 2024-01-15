@@ -36,6 +36,8 @@ import java.util.*;
  *
  * <p><b>Usage:</b> Instantiate the class and call the desired algorithm method with the appropriate parameters.
  * Each method returns an optimized sequence of {@code Order} objects based on the specified criterion.</p>
+ *
+ * @author Pierre
  */
 public class PierreAlgorithm {
 
