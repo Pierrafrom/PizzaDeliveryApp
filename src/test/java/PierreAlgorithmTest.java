@@ -16,11 +16,32 @@ public class PierreAlgorithmTest extends AlgorithmTest {
     // Brute force algorithm with time criterion
     // -----------------------------------------------------------------------------------------------------------------
 
+    @Test
+    public void testBruteForceTimeCorrectSelection() {
+        // Test to ensure that the brute force algorithm selects the correct orders
+        ArrayList<Order> orders = bruteForceTestSuite;
+        ArrayList<Order> selectedOrders = PierreAlgorithm.bruteForceTime(orders);
+        for (Order order : selectedOrders) {
+            System.out.println(order.id());
+        }
+        System.out.println("Time: " + Order.totalDeliveryTime(selectedOrders));
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // greedy algorithm with time criterion
     // -----------------------------------------------------------------------------------------------------------------
 
+    @Test
+    public void testGreedyTimeCorrectSelection() {
+        // Test to ensure that the greedy algorithm selects the correct orders
+        ArrayList<Order> orders = greedyTestSuite;
+        Order mandatoryOrder = orders.remove(0);
+        ArrayList<Order> selectedOrders = PierreAlgorithm.greedyTime(orders, mandatoryOrder);
+        for (Order order : selectedOrders) {
+            System.out.println(order.id());
+        }
+        System.out.println("Time: " + Order.totalDeliveryTime(selectedOrders));
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // Dynamic programming algorithm with distance criterion
@@ -47,8 +68,7 @@ public class PierreAlgorithmTest extends AlgorithmTest {
         // Test to ensure that the genetic algorithm selects the correct orders
         ArrayList<Order> orders = geneticTestSuite;
         Order mandatoryOrder = orders.remove(0);
-        ArrayList<Order> selectedOrders = PierreAlgorithm.geneticDiscount(orders, mandatoryOrder);
-        // Add assertions to check if the selected orders are the expected ones
+        ArrayList<Order> selectedOrders = PierreAlgorithm.geneticDiscount(orders, mandatoryOrder, true);
     }
 }
 

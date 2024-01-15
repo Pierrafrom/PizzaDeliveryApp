@@ -536,10 +536,11 @@ public class PierreAlgorithm {
      *
      * @param orders         An ArrayList of {@code Order} objects representing the available orders.
      * @param mandatoryOrder An {@code Order} object that must be included in each solution.
+     * @param display        A boolean flag indicating whether to display the state of the population at each generation.
      * @return An ArrayList of {@code Order} objects representing the optimized order sequence.
      * @throws IllegalArgumentException If the number of orders is less than the minimum required (4 in this case).
      */
-    public static ArrayList<Order> geneticDiscount(ArrayList<Order> orders, Order mandatoryOrder) {
+    public static ArrayList<Order> geneticDiscount(ArrayList<Order> orders, Order mandatoryOrder, boolean display) {
         if (orders.size() < 4) {
             throw new IllegalArgumentException("The number of orders must be at least 4");
         }
@@ -556,14 +557,16 @@ public class PierreAlgorithm {
         int generation = 1;
         // Evolve the population through generations
         while (generation < MAX_GENERATION) {
-            // Uncomment to display the population at each generation
-            // displayPopulation(population, "Generation " + generation);
+            if (display) {
+                displayPopulation(population, "Generation " + generation);
+            }
             // Generate a new population
             population = generateNewPopulation(population, orders, mandatoryOrder, POPULATION_SIZE, INDIVIDUAL_SIZE);
             generation++;
         }
-        // Uncomment to display the final solution
-        // System.out.println(population.get(0));
+        if (display) {
+            System.out.println(population.get(0));
+        }
 
         return population.get(0);  // Return the best individual from the final generation
 

@@ -60,7 +60,7 @@ public class SailorManAlgorithm {
             case GENETIC -> {
                 System.out.println("Genetic");
                 comb1 = SamuelAlgorithm.geneticTime(new ArrayList<>(orders), 15, 100, mandatoryOrder);
-                comb2 = PierreAlgorithm.geneticDiscount(new ArrayList<>(orders), mandatoryOrder);
+                comb2 = PierreAlgorithm.geneticDiscount(new ArrayList<>(orders), mandatoryOrder, false);
                 //comb3 = RemiAlgorithm.geneticDistance(orders, 15, 4,orderToTake);
                 grade1 = calculateGrade(comb1);
                 grade2 = calculateGrade(comb2);
