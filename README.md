@@ -9,13 +9,24 @@ and enhance the overall customer experience.
 ## Table of Contents
 
 1. [Running the app](#running-the-app)
-2. [Purpose & Usage](#purpose--usage)
-3. [Important points & Criteria](#important-points--criteria)
-4. [Project Structure](#project-structure)
-5. [Classes Overview](#classes-overview)
-6. [Algorithms](#algorithms)
-7. [OpenRouteService API Integration and Caching](#openrouteservice-api-integration-and-caching)
-8. [File Persistence](#file-persistence)
+2. [Testing with JUnit](#testing-with-junit)
+    1. [Overview](#overview)
+    2. [Test Classes](#test-classes)
+    3. [Test Suite Generation](#test-suite-generation)
+    4. [API Calls and Real-time Data Handling](#api-calls-and-real-time-data-handling)
+3. [Purpose & Usage](#purpose--usage)
+4. [Important points & Criteria](#important-points--criteria)
+5. [Project Structure](#project-structure)
+6. [Classes Overview](#classes-overview)
+7. [Algorithms](#algorithms)
+8. [OpenRouteService API Integration and Caching](#openrouteservice-api-integration-and-caching)
+    1. [API Usage for Distance and Travel Time Calculations](#api-usage-for-distance-and-travel-time-calculations)
+    2. [Handling API Limitations](#handling-api-limitations)
+    3. [Backup Solution](#backup-solution)
+    4. [Caching Mechanism](#caching-mechanism)
+    5. [Continuous Improvement](#continuous-improvement)
+    6. [Code Snippet](#code-snippet)
+9. [File Persistence](#file-persistence)
 
 ## Running the app
 
@@ -40,13 +51,13 @@ delivery algorithms, order management, and the accuracy of GPS calculations.
 The following test classes are available in the `src/test/java` package of the Maven structure:
 
 - `AlgorithmTest`: Tests the validity of the results returned by different algorithms based on criteria such as delivery
-- time, distance, and the number of discount tickets.
+   time, distance, and the number of discount tickets.
 - `PierreAlgorithmTest`, `SamuelAlgorithmTest`: These classes specifically test the algorithms developed by Pierre and
-- Samuel, assessing their efficiency and accuracy in various scenarios.
+   Samuel, assessing their efficiency and accuracy in various scenarios.
 - `PizzeriaTest`: Ensures that the `Pizzeria` class properly manages the assignment of orders to delivery personnel and
-- the execution of delivery algorithms.
+   the execution of delivery algorithms.
 - `TestSuiteGenerator`: Generates dynamic test suites with varied orders to test the robustness of algorithms under
-- different conditions.
+   different conditions.
 
 ### Test Suite Generation
 
