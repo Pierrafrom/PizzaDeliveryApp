@@ -148,6 +148,8 @@ public class SailorManAlgorithm {
                 return comb2;
             }
         }
+        // Here again we have some trouble with Remi's algorithm, so we are excluding it out of the priorityComb
+
         /* else if (discountsForComb2 == discountsForComb3) {
             // In case of equality in discounts between comb2 and comb3
             double totalTimeComb2 = Order.totalDeliveryTime(comb2);
