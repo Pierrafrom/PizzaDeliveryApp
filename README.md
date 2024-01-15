@@ -14,7 +14,8 @@ and enhance the overall customer experience.
 4. [Project Structure](#project-structure)
 5. [Classes Overview](#classes-overview)
 6. [Algorithms](#algorithms)
-7. [File Persistence](#file-persistence)
+7. [OpenRouteService API Integration and Caching](#openrouteservice-api-integration-and-caching)
+8. [File Persistence](#file-persistence)
 
 ## Running the app
 
@@ -146,7 +147,8 @@ the entire suite of tests using simple Maven commands.
 
 9. `PierreAlgorithm`: Implements Pierre's algorithms for order assignment.
 
-10. `RemiAlgorithm`: Implements Remi's algorithms for order assignment.
+10. `RemiAlgorithm`: Implements Remi's algorithms for order assignment. For now, we are not using Remi's algorithm because
+    it is not working properly to make our app work.     
 
 11. `Grades`:The Grades interface defines constants representing the maximum delivery times.
 
