@@ -31,7 +31,7 @@ public class PizzeriaTest extends AlgorithmTest {
         // Create a Pizzeria instance
         Pizzeria pizzeria = new Pizzeria();
 
-        pizzeria.setOrders(greedyTestSuite);
+        pizzeria.setOrders(geneticTestSuite);
 
         // Call the run method
         pizzeria.run();
@@ -42,7 +42,7 @@ public class PizzeriaTest extends AlgorithmTest {
         // Create a Pizzeria instance
         Pizzeria pizzeria = new Pizzeria();
 
-        pizzeria.setOrders(geneticTestSuite);
+        pizzeria.setOrders(greedyTestSuite);
 
         // Call the run method
         pizzeria.run();
