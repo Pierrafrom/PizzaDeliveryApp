@@ -19,7 +19,9 @@ public class SailorManAlgorithm {
         Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         // Selection of the algorithm type based on the number of elements in the list
         AlgorithmType algorithmType;
-        if (orders.size() < GENETIC_SIZE) {
+        if (orders.size() < 5) {
+            algorithmType = AlgorithmType.BRUTE_FORCE;
+        } else if (orders.size() < GENETIC_SIZE) {
             algorithmType = AlgorithmType.DYNAMIC;
         } else if (orders.size() < GREEDY_SIZE) {
             algorithmType = AlgorithmType.GENETIC;
@@ -32,7 +34,16 @@ public class SailorManAlgorithm {
         ArrayList<Order> comb1 = new ArrayList<>();
         ArrayList<Order> comb2 = new ArrayList<>();
         //ArrayList<Order> comb3 = new ArrayList<>();
-        switch(algorithmType) {
+        switch (algorithmType) {
+            case BRUTE_FORCE -> {
+                System.out.println("Brute force");
+                comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(orders));
+                comb2 = PierreAlgorithm.bruteForceTime(new ArrayList<>(orders));
+                //comb3 = RemiAlgorithm.bruteForceDistance(new ArrayList<>(orders));
+                grade1 = calculateGrade(comb1);
+                grade2 = calculateGrade(comb2);
+                //grade3 = calculateGrade(comb3);
+            }
             case DYNAMIC -> {
                 System.out.println("Dynamic");
                 comb1 = SamuelAlgorithm.dynamicDiscount(new ArrayList<>(orders), mandatoryOrder);
@@ -66,7 +77,7 @@ public class SailorManAlgorithm {
 
         if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
             //maxComb = getPriorityComb(comb1, comb2, comb3);
-            maxComb =  getPriorityComb(comb1, comb2);
+            maxComb = getPriorityComb(comb1, comb2);
         } else if (maxGrade == grade1) {
             maxComb = comb1;
             System.out.println("we take Samuel's algorithm, its grade is: " + grade1);
@@ -81,7 +92,8 @@ public class SailorManAlgorithm {
         return maxComb;
     }
 
-    private static ArrayList<Order> getPriorityComb(ArrayList<Order> comb1, ArrayList<Order> comb2/*,ArrayList<Order> comb3*/) {
+    private static ArrayList<Order> getPriorityComb
+            (ArrayList<Order> comb1, ArrayList<Order> comb2/*,ArrayList<Order> comb3*/) {
         int discountsForComb1 = Order.numberOfDiscount(comb1);
         int discountsForComb2 = Order.numberOfDiscount(comb2);
         //int discountsForComb3 = Order.numberOfDiscount(comb3);
@@ -117,13 +129,15 @@ public class SailorManAlgorithm {
             } else {
                 return comb3;
             }
-        } */ else {
+        } */
+        else {
             // If no equality, return the combination with the maximum discounts
             if (discountsForComb1 >= discountsForComb2 /*&& discountsForComb1 >= discountsForComb3*/) {
                 return comb1;
             } /*else if (discountsForComb2 >= discountsForComb1 && discountsForComb2 >= discountsForComb3) {
                 return comb2; *
-            } else*/ {
+            } else*/
+            {
                 //return comb3;
                 return comb2;
             }
