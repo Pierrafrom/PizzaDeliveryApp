@@ -1,56 +1,60 @@
 package com.pizzadelivery.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class DeliveryPerson {
+public class DeliveryPerson extends Thread {
     public static final int MAX_ORDERS = 5;
     private final int id;
     private final String name;
     private final String firstName;
-    private boolean available;
-    private ArrayList<Order> orders;
+    private boolean available = true;
 
     public DeliveryPerson(int id, String name, String firstName) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
-        this.available = true;
-        this.orders = new ArrayList<>();
     }
 
-    public void simulateDelivery() {
-        //TO DO: implement the method
-        System.out.println("delivery man n°"+getId()+" delivering orders... it will take "+Order.totalDeliveryTime(orders)+" minutes");
+    // Thread's run method
+    public void run() {
+        while (true) {
+            if (available) {
+                ArrayList<Order> combination = selectOrdersToDeliver();
+                if (!combination.isEmpty()) {
+                    simulateDelivery(combination);
+                }
+            }
+            // Optionally, you can add a sleep here to simulate time between checking for orders
+        }
     }
 
-    // Getters & Setters
-
-    public int getId() {
-        return id;
+    // Method to select orders to deliver
+    public synchronized ArrayList<Order> selectOrdersToDeliver() {
+        ArrayList<Order> selectedOrders = new ArrayList<>();
+        return selectedOrders;
     }
 
-    public String getName() {
-        return name;
+    // Method to simulate order delivery
+    public synchronized void simulateDelivery(ArrayList<Order> combination) {
+        try {
+            setAvailable(false);
+            System.out.println("Delivery man #" + getId() + " delivering orders... It will take " +
+                    Order.totalDeliveryTime(combination) + " minutes");
+            // Simulate delivery time based on the total delivery time of selected orders
+            Thread.sleep((long) Order.totalDeliveryTime(combination) * 1000);
+            System.out.println("Delivery completed for delivery man #" + getId());
+            setAvailable(true);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
+    // Setters and Getters for available
+    public synchronized void setAvailable(boolean available) {
         this.available = available;
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
+    public synchronized boolean isAvailable() {
+        return available;
     }
 }

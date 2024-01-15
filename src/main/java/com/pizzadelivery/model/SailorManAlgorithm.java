@@ -1,12 +1,6 @@
 package com.pizzadelivery.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class SailorManAlgorithm {
 
@@ -32,7 +26,6 @@ public class SailorManAlgorithm {
         } else {
             algorithmType = AlgorithmType.GREEDY;
         }
-
         int grade1 = 0;
         int grade2 = 0;
         int grade3 = 0;
@@ -42,17 +35,17 @@ public class SailorManAlgorithm {
         switch(algorithmType) {
             case DYNAMIC -> {
                 System.out.println("Dynamic");
-                comb1 = SamuelAlgorithm.dynamicDiscount(orders, mandatoryOrder);
-                comb2 = PierreAlgorithm.dynamicDistance(orders, mandatoryOrder);
-                comb3 = RemiAlgorithm.dynamicTime(orders, mandatoryOrder);
+                comb1 = SamuelAlgorithm.dynamicDiscount(new ArrayList<>(orders), mandatoryOrder);
+                comb2 = PierreAlgorithm.dynamicDistance(new ArrayList<>(orders), mandatoryOrder);
+                comb3 = RemiAlgorithm.dynamicTime(new ArrayList<>(orders), mandatoryOrder);
                 grade1 = calculateGrade(comb1);
                 grade2 = calculateGrade(comb2);
                 grade3 = calculateGrade(comb3);
             }
             case GENETIC -> {
                 System.out.println("Genetic");
-                comb1 = SamuelAlgorithm.geneticTime(orders, 15, 4, mandatoryOrder);
-                comb2 = PierreAlgorithm.geneticDiscount(orders, mandatoryOrder);
+                comb1 = SamuelAlgorithm.geneticTime(new ArrayList<>(orders), 15, 100, mandatoryOrder);
+                comb2 = PierreAlgorithm.geneticDiscount(new ArrayList<>(orders), mandatoryOrder);
                 //comb3 = RemiAlgorithm.geneticDistance(orders, 15, 4,orderToTake);
                 grade1 = calculateGrade(comb1);
                 grade2 = calculateGrade(comb2);
@@ -60,9 +53,9 @@ public class SailorManAlgorithm {
             }
             case GREEDY -> {
                 System.out.println("Greedy");
-                comb1 = SamuelAlgorithm.greedyDistance(orders, mandatoryOrder);
-                comb2 = PierreAlgorithm.greedyTime(orders, mandatoryOrder);
-                comb3 = RemiAlgorithm.greedyDiscount(orders, mandatoryOrder);
+                comb1 = SamuelAlgorithm.greedyDistance(new ArrayList<>(orders), mandatoryOrder);
+                comb2 = PierreAlgorithm.greedyTime(new ArrayList<>(orders), mandatoryOrder);
+                comb3 = RemiAlgorithm.greedyDiscount(new ArrayList<>(orders), mandatoryOrder);
                 grade1 = calculateGrade(comb1);
                 grade2 = calculateGrade(comb2);
                 grade3 = calculateGrade(comb3);
@@ -75,13 +68,13 @@ public class SailorManAlgorithm {
             maxComb = getPriorityComb(comb1, comb2, comb3);
         } else if (maxGrade == grade1) {
             maxComb = comb1;
-            System.out.println("Samuel's algorithm grade: " + grade1);
+            System.out.println("we take Samuel's algorithm, its grade is: " + grade1);
         } else if (maxGrade == grade2) {
             maxComb = comb2;
-            System.out.println("Pierre's algorithm grade: " + grade2);
+            System.out.println("we take Pierre's algorithm, its grade is: " + grade2);
         } else {
             maxComb = comb3;
-            System.out.println("Remi's algorithm grade: " + grade3);
+            System.out.println("we take Remi's algorithm, its grade is: " + grade3);
         }
         return maxComb;
     }
@@ -136,11 +129,6 @@ public class SailorManAlgorithm {
 
     public static int calculateGrade(ArrayList<Order> orders) {
         int grade = 0;
-        // Calculate the grade for a package of 5 orders
-        // 1 point for each time interval (based on constants in Grades)
-        // 2 points per order delivered without a discount
-        // Return the grade on a scale of 0 to 20
-        // ...
         double totalTime = Order.totalDeliveryTime(orders);
         int totalDiscount = Order.numberOfDiscount(orders);
 
@@ -169,14 +157,7 @@ public class SailorManAlgorithm {
 
     public static void sortOrders(ArrayList<Order> orders) {
         System.out.println("Brute force sort");
-        // Call each BRUTE_FORCE algorithm on a copy of the list to find the best grade among the 3 criteria
-        // If grades are the same, return the result of DISCOUNT, then TIME, then DISTANCE
-        // Sort the original list based on the best criterion (maximum grade)
-        // ...
-        // Call each BRUTE_FORCE algorithm on a copy of the list to find the best grade among the 3 criteria
-
         ArrayList<Order> copyOrders = new ArrayList<>(orders);
-
         ArrayList<Order> comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(copyOrders));
         ArrayList<Order> comb2 = PierreAlgorithm.bruteForceTime(new ArrayList<>(copyOrders));
         ArrayList<Order> comb3 = RemiAlgorithm.bruteForceDistance(new ArrayList<>(copyOrders));

@@ -92,7 +92,7 @@ public class SamuelAlgorithm {
         }
 
         // Find the combination with the least total discount
-        ArrayList<Order> bestCombination = null;
+        ArrayList<Order> bestCombination = new ArrayList<>();
         int minTotalDiscount = Integer.MAX_VALUE;
 
         for (ArrayList<Order> combination : discountCombinations) {

@@ -9,7 +9,7 @@ public class PizzeriaTest extends AlgorithmTest {
         // Create a Pizzeria instance
         Pizzeria pizzeria = new Pizzeria();
 
-        pizzeria.setOrders(dynamicTestSuite);
+        pizzeria.setOrders(greedyTestSuite);
 
         // Call the run method
         pizzeria.run();
