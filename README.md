@@ -1,4 +1,5 @@
 # Pizza Delivery App
+Made and thought by <a href="https://github.com/Pierrafrom" target="_blank">Pierre Fromont Boissel</a>, <a href="https://github.com/Samuelito78" target="_blank">Samuel Boix-Segura</a> and <a href="https://github.com/Gayar78" target="_blank">Rémi Thibault</a> . <br>
 
 ## Overview
 
