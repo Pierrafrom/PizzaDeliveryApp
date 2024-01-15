@@ -1,60 +1,90 @@
 package com.pizzadelivery.model;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class DeliveryPerson extends Thread {
-    public static final int MAX_ORDERS = 5;
     private final int id;
     private final String name;
     private final String firstName;
-    private boolean available = true;
+    private final ArrayList<Order> ordersToDeliver;
+    private boolean available;
 
     public DeliveryPerson(int id, String name, String firstName) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
+        this.ordersToDeliver = new ArrayList<>();
+        this.available = true;
     }
 
-    // Thread's run method
     public void run() {
         while (true) {
-            if (available) {
-                ArrayList<Order> combination = selectOrdersToDeliver();
-                if (!combination.isEmpty()) {
-                    simulateDelivery(combination);
+            synchronized (this) {
+                while (ordersToDeliver.isEmpty()) {
+                    try {
+                        wait(); // Attendre une commande
+                    } catch (InterruptedException e) {
+                        Logger logger = Logger.getLogger(DeliveryPerson.class.getName());
+                        logger.warning("Thread interrupted: " + e.getMessage());
+                    }
                 }
+
+                // Préparer les commandes pour la livraison
+                ArrayList<Order> combination = new ArrayList<>(ordersToDeliver);
+                ordersToDeliver.clear();
+                setAvailable(false);
+
+                // Simuler la livraison
+                simulateDelivery(combination);
+                setAvailable(true);
             }
-            // Optionally, you can add a sleep here to simulate time between checking for orders
         }
     }
 
-    // Method to select orders to deliver
-    public synchronized ArrayList<Order> selectOrdersToDeliver() {
-        ArrayList<Order> selectedOrders = new ArrayList<>();
-        return selectedOrders;
-    }
-
-    // Method to simulate order delivery
     public synchronized void simulateDelivery(ArrayList<Order> combination) {
         try {
             setAvailable(false);
-            System.out.println("Delivery man #" + getId() + " delivering orders... It will take " +
+            String orderIds = combination.stream()
+                    .map(order -> String.valueOf(order.id()))
+                    .collect(Collectors.joining(", "));
+            System.out.println("Delivery man #" + id() + " delivering orders: " + orderIds + ". It will take " +
                     Order.totalDeliveryTime(combination) + " minutes");
-            // Simulate delivery time based on the total delivery time of selected orders
+
+            // Simuler le temps de livraison
             Thread.sleep((long) Order.totalDeliveryTime(combination) * 1000);
-            System.out.println("Delivery completed for delivery man #" + getId());
+            System.out.println("Delivery completed for delivery man #" + id());
             setAvailable(true);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(DeliveryPerson.class.getName());
+            logger.warning("Delivery interrupted");
         }
     }
 
-    // Setters and Getters for available
+
+    public synchronized void setOrdersToDeliver(ArrayList<Order> ordersToDeliver) {
+        this.ordersToDeliver.addAll(ordersToDeliver);
+    }
+
     public synchronized void setAvailable(boolean available) {
         this.available = available;
     }
 
     public synchronized boolean isAvailable() {
         return available;
+    }
+
+    // Getters pour id, name et firstName
+    public int id() {
+        return id;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String firstName() {
+        return firstName;
     }
 }

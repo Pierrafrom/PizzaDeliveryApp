@@ -1,8 +1,8 @@
 package com.pizzadelivery.model;
 
 public interface Grades {
-    public static final int NOTE_10_MAX_TIME = 60;  // 60 minutes
-    public static final int NOTE_9_MAX_TIME = 65;   // 65 minutes
+    final int NOTE_10_MAX_TIME = 60;  // 60 minutes
+    final int NOTE_9_MAX_TIME = 65;   // 65 minutes
     public static final int NOTE_8_MAX_TIME = 70;   // 70 minutes
     public static final int NOTE_7_MAX_TIME = 75;   // 75 minutes
     public static final int NOTE_6_MAX_TIME = 80;   // 80 minutes
