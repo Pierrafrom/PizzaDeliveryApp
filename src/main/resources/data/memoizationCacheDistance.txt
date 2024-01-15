@@ -14,6 +14,7 @@ GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,641872, longitude=2,
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,753426, longitude=2,004750}:17.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,746812, longitude=2,222523}:15.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,711729, longitude=2,165678}:4.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,766400, longitude=2,090961}:13.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,787631, longitude=2,047017}:10.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,761326, longitude=2,182610}:16.0
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,645660, longitude=2,022451}:17.0
@@ -33,6 +34,7 @@ GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,669597, longitude=2,
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,660646, longitude=2,079915}:11.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,705672, longitude=2,144803}:8.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,746812, longitude=2,222523}:16.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,787631, longitude=2,047017}:29.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,706430, longitude=2,243686}:8.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,694435, longitude=2,120320}:7.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,634691, longitude=2,202837}:13.0
@@ -57,11 +59,13 @@ GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,641872, longitude=2,
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,753426, longitude=2,004750}:27.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,790403, longitude=2,154373}:20.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,622390, longitude=2,064801}:15.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,638732, longitude=2,112829}:19.0
 GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,761326, longitude=2,182610}:7.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,641872, longitude=2,215254}:15.0
 GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,777050, longitude=2,221262}:25.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,713841, longitude=1,997212}:16.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,774683, longitude=2,225788}:16.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,645660, longitude=2,022451}:21.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,694435, longitude=2,120320}:6.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,711729, longitude=2,165678}:14.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,685079, longitude=2,030520}:12.0
@@ -73,8 +77,10 @@ GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,783909, longitude=2,
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,670333, longitude=2,018205}:15.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,712697, longitude=1,989646}:13.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,677114, longitude=2,060755}:9.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,760100, longitude=2,011179}:20.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,694875, longitude=2,208381}:6.0
 GPS{latitude=48,697376, longitude=2,141332}|GPS{latitude=48,787631, longitude=2,047017}:15.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,673010, longitude=2,090216}:15.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,712697, longitude=1,989646}:15.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,766400, longitude=2,090961}:8.0
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,741207, longitude=2,111275}:19.0
@@ -90,6 +96,7 @@ GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,641872, longitude=2,
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,662115, longitude=2,073237}:10.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,769134, longitude=2,054012}:14.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,766400, longitude=2,090961}:18.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,664425, longitude=2,143498}:14.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,705382, longitude=2,107241}:7.0
 GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,711729, longitude=2,165678}:15.0
 GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,686458, longitude=2,210024}:16.0
@@ -116,14 +123,17 @@ GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,714967, longitude=2,
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,783909, longitude=2,197229}:21.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,787631, longitude=2,047017}:21.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,753426, longitude=2,004750}:11.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,677114, longitude=2,060755}:17.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,628707, longitude=2,049159}:15.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,748590, longitude=2,121287}:8.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,677114, longitude=2,060755}:25.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,755022, longitude=2,142428}:12.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,638732, longitude=2,112829}:15.0
+GPS{latitude=48,694435, longitude=2,120320}|GPS{latitude=48,777050, longitude=2,221262}:18.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,745862, longitude=2,192004}:14.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,677114, longitude=2,060755}:32.0
 ngitude=2,090961}|GPS{latitude=48,741207, longitude=2,111275}:6.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,686458, longitude=2,210024}:7.0
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,723071, longitude=2,081021}:16.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,667032, longitude=2,034345}:9.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,736968, longitude=2,223166}:9.0
@@ -131,7 +141,10 @@ GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,783909, longitude=2,
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,705672, longitude=2,144803}:18.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,748590, longitude=2,121287}:10.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,664425, longitude=2,143498}:15.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,764235, longitude=2,040428}:14.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,641872, longitude=2,215254}:10.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,620159, longitude=2,170836}:14.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,761326, longitude=2,182610}:11.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,723071, longitude=2,081021}:13.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,686458, longitude=2,210024}:11.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,741207, longitude=2,111275}:4.0
@@ -159,9 +172,11 @@ GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,645660, longitude=2,
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,760100, longitude=2,011179}:22.0
 GPS{latitude=48,697376, longitude=2,141332}|GPS{latitude=48,699870, longitude=2,170328}:3.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,723071, longitude=2,081021}:11.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,685079, longitude=2,030520}:16.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,632436, longitude=2,184633}:13.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,699870, longitude=2,170328}:20.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,686458, longitude=2,210024}:18.0
+GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,746812, longitude=2,222523}:7.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,723071, longitude=2,081021}:9.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,741207, longitude=2,111275}:12.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,713841, longitude=1,997212}:13.0
@@ -185,10 +200,12 @@ GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,677114, longitude=2,
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,714967, longitude=2,005461}:15.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,717129, longitude=2,034726}:12.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,706212, longitude=2,056208}:9.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,681144, longitude=1,995977}:17.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,664425, longitude=2,143498}:9.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,777050, longitude=2,221262}:8.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,766400, longitude=2,090961}:13.0
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,685079, longitude=2,030520}:18.0
+GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,694435, longitude=2,120320}:16.0
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,641872, longitude=2,215254}:17.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,706212, longitude=2,056208}:10.0
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,645660, longitude=2,022451}:17.0
@@ -207,6 +224,7 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,706212, longitude=2,
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,761326, longitude=2,182610}:11.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,717129, longitude=2,034726}:12.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,760100, longitude=2,011179}:18.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,670333, longitude=2,018205}:16.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,636555, longitude=2,201538}:16.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,706430, longitude=2,243686}:8.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,772543, longitude=2,023532}:18.0
@@ -218,6 +236,7 @@ GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,706212, longitude=2,
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,769688, longitude=2,010139}:20.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,619973, longitude=2,172378}:14.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,753426, longitude=2,004750}:18.0
+GPS{latitude=48,746812, longitude=2,222523}|GPS{latitude=48,694435, longitude=2,120320}:14.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,634691, longitude=2,202837}:11.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,766400, longitude=2,090961}:14.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,772543, longitude=2,023532}:16.0
@@ -232,7 +251,10 @@ GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,685079, longitude=2,
 GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,641872, longitude=2,215254}:20.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,645660, longitude=2,022451}:19.0
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,686458, longitude=2,210024}:18.0
+GPS{latitude=48,769134, longitude=2,054012}|GPS{latitude=48,673010, longitude=2,090216}:17.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,699870, longitude=2,170328}:2.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,741816, longitude=2,047072}:14.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,669597, longitude=2,240772}:11.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,620159, longitude=2,170836}:14.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,741816, longitude=2,047072}:11.0
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,685079, longitude=2,030520}:16.0
@@ -253,6 +275,7 @@ GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,741207, longitude=2,
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,800387, longitude=2,219429}:15.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,723071, longitude=2,081021}:9.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,777050, longitude=2,221262}:25.0
+GPS{latitude=48,746812, longitude=2,222523}|GPS{latitude=48,777050, longitude=2,221262}:6.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,785379, longitude=2,121984}:17.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,619973, longitude=2,172378}:15.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,690723, longitude=2,181914}:4.0
@@ -260,6 +283,7 @@ GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,620159, longitude=2,
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,673010, longitude=2,090216}:13.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,641872, longitude=2,215254}:19.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,673010, longitude=2,090216}:8.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,714967, longitude=2,005461}:25.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,723071, longitude=2,081021}:13.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,801653, longitude=2,247867}:18.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,645660, longitude=2,022451}:16.0
@@ -279,14 +303,17 @@ GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,705672, longitude=2,
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,671410, longitude=2,190242}:7.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,673010, longitude=2,090216}:9.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,761028, longitude=2,011355}:16.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,685079, longitude=2,030520}:20.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,662115, longitude=2,073237}:11.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,748590, longitude=2,121287}:8.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,748590, longitude=2,121287}:8.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,766400, longitude=2,090961}:11.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,783909, longitude=2,197229}:23.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,671410, longitude=2,190242}:5.0
+GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,694435, longitude=2,120320}:4.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,741207, longitude=2,111275}:6.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,673010, longitude=2,090216}:11.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,632436, longitude=2,184633}:13.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,705672, longitude=2,144803}:14.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,761028, longitude=2,011355}:20.0
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,766400, longitude=2,090961}:18.0
@@ -326,6 +353,7 @@ GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,736968, longitude=2,
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,685079, longitude=2,030520}:15.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,705672, longitude=2,144803}:11.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,700724, longitude=2,179650}:1.0
+GPS{latitude=48,746812, longitude=2,222523}|GPS{latitude=48,673010, longitude=2,090216}:21.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,790403, longitude=2,154373}:23.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,694875, longitude=2,208381}:6.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,622390, longitude=2,064801}:21.0
@@ -354,17 +382,22 @@ GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,685079, longitude=2,
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,705672, longitude=2,144803}:8.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,671410, longitude=2,190242}:14.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,761326, longitude=2,182610}:7.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,677114, longitude=2,060755}:17.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,705382, longitude=2,107241}:6.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,797820, longitude=2,001442}:30.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,699870, longitude=2,170328}:1.0
 GPS{latitude=48,645660, longitude=2,022451}|GPS{latitude=48,711729, longitude=2,165678}:22.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,790403, longitude=2,154373}:18.0
+GPS{latitude=48,769134, longitude=2,054012}|GPS{latitude=48,746812, longitude=2,222523}:19.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,761326, longitude=2,182610}:19.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,714967, longitude=2,005461}:16.0
 GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,677114, longitude=2,060755}:27.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,685079, longitude=2,030520}:30.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,677114, longitude=2,060755}:11.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,647051, longitude=2,037003}:15.0
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,753426, longitude=2,004750}:23.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,753426, longitude=2,004750}:21.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,787631, longitude=2,047017}:25.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,699870, longitude=2,170328}:4.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,723071, longitude=2,081021}:6.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,673010, longitude=2,090216}:18.0
@@ -386,6 +419,7 @@ GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,736968, longitude=2,
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,622390, longitude=2,064801}:16.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,761326, longitude=2,182610}:8.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,741816, longitude=2,047072}:13.0
+GPS{latitude=48,694435, longitude=2,120320}|GPS{latitude=48,673010, longitude=2,090216}:4.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,664425, longitude=2,143498}:8.0
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,777050, longitude=2,221262}:21.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,769688, longitude=2,010139}:16.0
@@ -399,6 +433,7 @@ GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,761326, longitude=2,
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,673010, longitude=2,090216}:31.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,723071, longitude=2,081021}:11.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,645660, longitude=2,022451}:29.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,645660, longitude=2,022451}:21.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,690723, longitude=2,181914}:6.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,671410, longitude=2,190242}:7.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,727129, longitude=2,066949}:13.0
@@ -417,6 +452,7 @@ GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,645660, longitude=2,
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,777050, longitude=2,221262}:18.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,753426, longitude=2,004750}:16.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,619973, longitude=2,172378}:13.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,660646, longitude=2,079915}:15.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,785379, longitude=2,121984}:24.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,780874, longitude=2,049727}:16.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,641872, longitude=2,215254}:11.0
@@ -427,6 +463,7 @@ GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,705672, longitude=2,
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,685079, longitude=2,030520}:10.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,787631, longitude=2,047017}:14.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,685079, longitude=2,030520}:18.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,766400, longitude=2,090961}:17.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,645660, longitude=2,022451}:18.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,741207, longitude=2,111275}:7.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,697376, longitude=2,141332}:2.0
@@ -451,13 +488,16 @@ GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,694435, longitude=2,
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,780874, longitude=2,049727}:26.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,697376, longitude=2,141332}:4.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,746812, longitude=2,222523}:11.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,769688, longitude=2,010139}:17.0
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,783909, longitude=2,197229}:28.0
+GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,746812, longitude=2,222523}:24.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,797820, longitude=2,001442}:33.0
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,777050, longitude=2,221262}:21.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,765200, longitude=2,170518}:11.0
 GPS{latitude=48,777050, longitude=2,221262}|GPS{latitude=48,685079, longitude=2,030520}:24.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,641872, longitude=2,215254}:17.0
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,677114, longitude=2,060755}:16.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,634691, longitude=2,202837}:11.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,713841, longitude=1,997212}:15.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,705672, longitude=2,144803}:15.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,705672, longitude=2,144803}:8.0
@@ -478,6 +518,7 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,748998, longitude=2,
 GPS{latitude=48,673010, longitude=2,090216}|GPS{latitude=48,783909, longitude=2,197229}:31.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,641872, longitude=2,215254}:26.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,717129, longitude=2,034726}:9.0
+GPS{latitude=48,694435, longitude=2,120320}|GPS{latitude=48,746812, longitude=2,222523}:17.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,761028, longitude=2,011355}:18.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,741207, longitude=2,111275}:9.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,645660, longitude=2,022451}:25.0
@@ -486,6 +527,7 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,765200, longitude=2,
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,748998, longitude=2,141716}:10.0
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,723071, longitude=2,081021}:16.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,777050, longitude=2,221262}:15.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,777050, longitude=2,221262}:12.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,741207, longitude=2,111275}:8.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,705672, longitude=2,144803}:8.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,741816, longitude=2,047072}:13.0
@@ -498,6 +540,7 @@ GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,711729, longitude=2,
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,638732, longitude=2,112829}:13.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,706212, longitude=2,056208}:11.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,673010, longitude=2,090216}:3.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,641872, longitude=2,215254}:11.0
 GPS{latitude=48,677114, longitude=2,060755}|GPS{latitude=48,645660, longitude=2,022451}:9.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,638732, longitude=2,112829}:20.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,766400, longitude=2,090961}:15.0
@@ -533,13 +576,16 @@ GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,741816, longitude=2,
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,783909, longitude=2,197229}:14.0
 GPS{latitude=48,686458, longitude=2,210024}|GPS{latitude=48,677114, longitude=2,060755}:13.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,764235, longitude=2,040428}:16.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,723071, longitude=2,081021}:15.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,765200, longitude=2,170518}:13.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,677114, longitude=2,060755}:11.0
+GPS{latitude=48,769134, longitude=2,054012}|GPS{latitude=48,777050, longitude=2,221262}:15.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,766400, longitude=2,090961}:16.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,783909, longitude=2,197229}:7.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,753426, longitude=2,004750}:20.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,769134, longitude=2,054012}:14.0
 GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,764235, longitude=2,040428}:14.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,765200, longitude=2,170518}:8.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,761326, longitude=2,182610}:8.0
 GPS{latitude=48,641872, longitude=2,215254}|GPS{latitude=48,766400, longitude=2,090961}:22.0
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,766400, longitude=2,090961}:18.0
@@ -549,6 +595,7 @@ GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,727129, longitude=2,
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,685079, longitude=2,030520}:20.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,745862, longitude=2,192004}:10.0
 ongitude=2,144803}:14.0
+GPS{latitude=48,769134, longitude=2,054012}|GPS{latitude=48,694435, longitude=2,120320}:14.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,736968, longitude=2,223166}:13.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,686458, longitude=2,210024}:22.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,761326, longitude=2,182610}:12.0
@@ -557,15 +604,19 @@ GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,769134, longitude=2,
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,664425, longitude=2,143498}:8.0
 GPS{latitude=48,705672, longitude=2,144803}|GPS{latitude=48,716121, longitude=2,171620}:9.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,636555, longitude=2,201538}:19.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,723071, longitude=2,081021}:11.0
 GPS{latitude=48,723071, longitude=2,081021}|GPS{latitude=48,686458, longitude=2,210024}:16.0
 GPS{latitude=48,787631, longitude=2,047017}|GPS{latitude=48,761326, longitude=2,182610}:14.0
+GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,748128, longitude=2,083945}:10.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,764235, longitude=2,040428}:17.0
 GPS{latitude=48,741207, longitude=2,111275}|GPS{latitude=48,677114, longitude=2,060755}:12.0
 GPS{latitude=48,699870, longitude=2,170328}|GPS{latitude=48,748998, longitude=2,141716}:11.0
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,787631, longitude=2,047017}:9.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,777050, longitude=2,221262}:16.0
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,641872, longitude=2,215254}:27.0
 GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,685079, longitude=2,030520}:19.0
 GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,677114, longitude=2,060755}:4.0
+GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,741207, longitude=2,111275}:12.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,677114, longitude=2,060755}:12.0
 de=2,037003}:18.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,766400, longitude=2,090961}:12.0

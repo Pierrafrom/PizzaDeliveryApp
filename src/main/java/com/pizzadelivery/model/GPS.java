@@ -17,6 +17,10 @@ import java.nio.file.Paths;
 
 import static java.lang.Math.round;
 
+/**
+ * Represents a GPS location with latitude and longitude coordinates.
+ * Provides methods to calculate distance and time travel to another GPS location.
+ */
 public record GPS(double latitude, double longitude) implements Serializable {
     private static final Path FILE_PATH = Paths.get("src/main/resources/data/");
     private static final String TIME_CACHE_FILE_NAME = "memoizationCacheTime.txt";
@@ -30,6 +34,14 @@ public record GPS(double latitude, double longitude) implements Serializable {
     private static boolean isApiInCooldown = false;
     private static final int API_COOLDOWN_TIME_MS = 2 * 60 * 1000; // 2 minutes in milliseconds
 
+    /**
+     * Calls the OpenRouteService API to obtain the route between two GPS locations.
+     *
+     * @param source      The source GPS location.
+     * @param destination The destination GPS location.
+     * @return The JSON response from the OpenRouteService API.
+     * @throws Exception If an error occurs during the API call.
+     */
     public static String callOpenRouteServiceApi(GPS source, GPS destination) throws Exception {
         // Check if the API is in cooldown
         if (isApiInCooldown) {
@@ -90,6 +102,12 @@ public record GPS(double latitude, double longitude) implements Serializable {
         return conn;
     }
 
+    /**
+     * Calculates the time required to travel from this GPS location to another.
+     *
+     * @param otherGPS The destination GPS location.
+     * @return The calculated travel time in minutes.
+     */
     public double timeTravel(GPS otherGPS) {
         String key = this + "|" + otherGPS;
 
@@ -141,6 +159,12 @@ public record GPS(double latitude, double longitude) implements Serializable {
 
     }
 
+    /**
+     * Calculates the distance between this GPS location and another.
+     *
+     * @param destination The destination GPS location.
+     * @return The calculated distance in kilometers.
+     */
     public double calculateDistance(GPS destination) {
         // Check if the distance is already memoized
         String memoizationKey = this + "|" + destination;
@@ -191,6 +215,12 @@ public record GPS(double latitude, double longitude) implements Serializable {
     }
 
 
+    /**
+     * Calculates the distance between two GPS locations using the Haversine formula.
+     *
+     * @param destination The destination GPS location.
+     * @return The calculated distance in kilometers.
+     */
     private double calculateCrowFliesDistance(GPS destination) {
         // Earth's radius in kilometers
         double earthRadius = 6371;
@@ -215,6 +245,12 @@ public record GPS(double latitude, double longitude) implements Serializable {
         return earthRadius * c;
     }
 
+    /**
+     * Calculates the travel time between two GPS locations based on scooter speed.
+     *
+     * @param destination The destination GPS location.
+     * @return The calculated travel time in hours.
+     */
     public double calculateCrowTravelTime(GPS destination) {
         double travelTime = -1;
         try {
@@ -230,9 +266,12 @@ public record GPS(double latitude, double longitude) implements Serializable {
         return travelTime;
     }
 
+    /**
+     * Initiates a cooldown period for the OpenRouteService API.
+     */
     private static void startApiCooldown() {
         isApiInCooldown = true;
-        System.out.println("API is in cooldown");
+
         new Thread(() -> {
             try {
                 Thread.sleep(API_COOLDOWN_TIME_MS);
@@ -246,7 +285,11 @@ public record GPS(double latitude, double longitude) implements Serializable {
         }).start();
     }
 
-    // ToString method
+    /**
+     * Returns a string representation of the GPS coordinates.
+     *
+     * @return The string representation of the GPS coordinates.
+     */
     @Override
     public String toString() {
         return String.format("GPS{latitude=%.6f, longitude=%.6f}", latitude, longitude);

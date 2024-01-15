@@ -10,6 +10,19 @@ public class SamuelAlgorithm {
                                   BRUTE FORCE discount ALGORITHM
       --------------------------------------------------------------------------------------*/
 
+    /**
+     * Generates all possible combinations of orders using a recursive permutation approach.
+     * The method aims to find the combination with the least discount, updating the result in the provided containers.
+     *
+     * @param orders            The list of orders to generate combinations from.
+     * @param k                 The current index in the recursive permutation process.
+     * @param bestOrderSequence A container to store the best combination of orders with the least discount.
+     * @param leastDiscount     An array to store the least discount found during the recursive permutations.
+     * @implNote The method uses a recursive approach to generate all permutations of orders,
+     * swapping elements to explore different combinations. It updates the bestOrderSequence
+     * and leastDiscount containers when a combination with a lower discount is found.
+     * @see Order#numberOfDiscount(ArrayList)
+     */
     private static void generateCombinations(ArrayList<Order> orders, int k, ArrayList<Order> bestOrderSequence, int[] leastDiscount) {
         for (int i = k; i < orders.size(); i++) {
             Collections.swap(orders, i, k);
@@ -26,16 +39,53 @@ public class SamuelAlgorithm {
         }
     }
 
+
+    /**
+     * Applies a brute-force approach to find the optimal combination of orders with the least discount.
+     * The method generates all possible combinations of orders and selects the one with the minimum discount.
+     *
+     * @param allOrders The list of orders for which the optimal combination is to be determined.
+     * @return An ArrayList containing the best combination of orders with the least discount.
+     * @implNote The method utilizes the {@link #generateCombinations(ArrayList, int, ArrayList, int[])} method
+     * to explore all possible permutations of orders.
+     * @complexity The time complexity of this algorithm is O(n!), where n is the number of orders.
+     * This is due to the generation of all possible permutations of orders using a recursive approach.
+     * The space complexity is O(n) for the recursive call stack and O(1) for other variables.
+     * @see #generateCombinations(ArrayList, int, ArrayList, int[])
+     */
     public static ArrayList<Order> bruteForceDiscount(ArrayList<Order> allOrders) {
+        // Initialize containers to store the best combination and least discount
         ArrayList<Order> bestCombination = new ArrayList<>();
         int[] leastDiscount = {Integer.MAX_VALUE};
+
+        // Generate all combinations and update the best combination and least discount
         generateCombinations(allOrders, 0, bestCombination, leastDiscount);
+
+        // Return the best combination found
         return bestCombination;
     }
+
+
 
     /*--------------------------------------------------------------------------------------
                                  GREEDY distance ALGORITHM
       --------------------------------------------------------------------------------------*/
+
+    /**
+     * Applies a greedy approach to construct a combination of orders with the minimum total distance traveled.
+     * The method iteratively selects the order with the nearest location to the previous order.
+     *
+     * @param orders      The list of orders to be considered for constructing the combination.
+     * @param orderToTake The initial order to be included in the combination.
+     * @return An ArrayList containing a combination of orders with the least total distance traveled.
+     * @implNote The method initializes with an initial order and iteratively selects the order with the nearest
+     * location to the previous order until the combination reaches the desired size or there are no more orders.
+     * The total distance is minimized during the process.
+     * @complexity The time complexity of this algorithm is O(n^2), where n is the number of orders.
+     * This is due to the nested loop structure, where for each order in the outer loop, all remaining orders
+     * are considered in the inner loop to find the order with the nearest location.
+     * The space complexity is O(1) for variables and containers used in the method.
+     */
     public static ArrayList<Order> greedyDistance(ArrayList<Order> orders, Order orderToTake) {
         ArrayList<Order> bestCombination = new ArrayList<>();
         Order previousOrder = new Order(0, Pizzeria.PIZZERIA_LOCATION, LocalDateTime.now());
@@ -65,6 +115,24 @@ public class SamuelAlgorithm {
                                  DYNAMIC discount ALGORITHM
       --------------------------------------------------------------------------------------*/
 
+    /**
+     * Applies a dynamic programming approach to find the optimal combination of orders with the least total discount.
+     * The method considers orders with 0 discount tickets and forms combinations based on their delivery times.
+     *
+     * @param orders      The list of orders for which the optimal combination is to be determined.
+     * @param orderToTake The initial order to be included in the combination.
+     * @return An ArrayList containing the best combination of orders with the least total discount.
+     * @implNote The method first sorts the orders based on their delivery times from Pizzeria.PIZZERIA_LOCATION.
+     * It then iterates through each order, creating combinations with the first order and adding additional orders
+     * with 0 discount tickets until a combination of exactly 4 orders is formed. Combinations with 0 discount tickets
+     * are stored, and the one with the least total discount is returned as the result.
+     * @complexity The time complexity of this algorithm is O(n^3), where n is the number of orders.
+     * This is due to the nested loops: the outer loop iterates through each order, the middle loop searches for
+     * additional orders with 0 discount tickets, and the innermost loop calculates the total discount of each combination.
+     * The space complexity is O(n^2) for the discountCombinations list, where each combination can have up to n orders.
+     * @see Order#numberOfDiscount(ArrayList)
+     * @see Pizzeria#PIZZERIA_LOCATION
+     */
     public static ArrayList<Order> dynamicDiscount(ArrayList<Order> orders, Order orderToTake) {
         // Sort orders based on delivery time from Pizzeria.PIZZERIA_LOCATION in ascending order
         orders.sort(Comparator.comparingDouble(order -> Pizzeria.PIZZERIA_LOCATION.timeTravel(order.location())));
@@ -111,6 +179,25 @@ public class SamuelAlgorithm {
                                         GENETIC time ALGORITHM
       --------------------------------------------------------------------------------------*/
 
+    /**
+     * Applies a genetic algorithm to find the optimal combination of orders with the minimum total delivery time.
+     * The method uses a population of individuals, performs crossover and mutation operations, and selects the best individuals.
+     *
+     * @param orders         The list of orders for which the optimal combination is to be determined.
+     * @param populationSize The size of the population of individuals.
+     * @param generations    The number of generations to run the genetic algorithm.
+     * @param orderToTake    The initial order to be included in the combination.
+     * @return An ArrayList containing the best combination of orders with the least total delivery time.
+     * @implNote The method initializes a population, iteratively applies crossover and mutation operations,
+     * and selects the best individuals in each generation. The final result is the combination with the least
+     * total delivery time.
+     * @see #generatePopulation(ArrayList, int)
+     * @see #selectParent(ArrayList<ArrayList<Order>>)
+     * @see #crossover(ArrayList, ArrayList)
+     * @see #mutate(ArrayList)
+     * @see #findBestIndividual(ArrayList)
+     * @see Order#totalDeliveryTime(ArrayList)
+     */
     public static ArrayList<Order> geneticTime(ArrayList<Order> orders, int populationSize, int generations, Order orderToTake) {
         ArrayList<ArrayList<Order>> population = generatePopulation(orders, populationSize);
 
@@ -143,6 +230,13 @@ public class SamuelAlgorithm {
         return bestIndividual;
     }
 
+    /**
+     * Generates an individual for the genetic algorithm by randomly selecting orders from the given list.
+     *
+     * @param orders The list of orders from which to generate an individual.
+     * @return An ArrayList representing an individual with a combination of orders.
+     * @implNote The method randomly selects orders from the list, avoiding duplicates, to form an individual.
+     */
     private static ArrayList<Order> generateIndividual(ArrayList<Order> orders) {
         Random random = new Random();
         ArrayList<Order> individual = new ArrayList<>();
@@ -159,7 +253,14 @@ public class SamuelAlgorithm {
         return individual;
     }
 
-
+    /**
+     * Generates an initial population of individuals for the genetic algorithm.
+     *
+     * @param orders         The list of orders from which to generate individuals.
+     * @param populationSize The size of the population to be generated.
+     * @return An ArrayList containing the initial population of individuals.
+     * @implNote The method creates a population by generating individuals using the {@link #generateIndividual(ArrayList)} method.
+     */
     private static ArrayList<ArrayList<Order>> generatePopulation(ArrayList<Order> orders, int populationSize) {
         ArrayList<ArrayList<Order>> population = new ArrayList<>(populationSize);
         for (int i = 0; i < populationSize; i++) {
@@ -169,8 +270,15 @@ public class SamuelAlgorithm {
         return population;
     }
 
-
-
+    /**
+     * Selects a parent individual from the given population based on their total delivery time.
+     *
+     * @param population The population of individuals from which to select a parent.
+     * @return An ArrayList representing the selected parent individual.
+     * @throws RuntimeException if an exception occurs during the total delivery time calculation.
+     * @implNote The method sorts the population based on total delivery time and selects the top performer as the parent.
+     * @see Order#totalDeliveryTime(ArrayList)
+     */
     private static ArrayList<Order> selectParent(ArrayList<ArrayList<Order>> population) {
         population.sort(Comparator.comparingDouble(individual -> {
             try {
@@ -188,12 +296,13 @@ public class SamuelAlgorithm {
     }
 
     /**
-     * Applies a crossover between two individuals
-     * to create a child individual
+     * Applies a crossover operation between two parent individuals to create a child individual.
      *
      * @param parent1 The first parent individual.
      * @param parent2 The second parent individual.
-     * @return A new child individual resulting from the crossover operation.
+     * @return An ArrayList representing the child individual resulting from the crossover operation.
+     * @implNote The method selects a subset of genes from one parent and copies them to the child,
+     * filling in the remaining positions with genes from the other parent while avoiding duplicates.
      */
     private static ArrayList<Order> crossover(ArrayList<Order> parent1, ArrayList<Order> parent2) {
         int size = parent1.size();
@@ -228,6 +337,12 @@ public class SamuelAlgorithm {
         return child;
     }
 
+    /**
+     * Applies a mutation operation to a child individual by swapping two distinct positions.
+     *
+     * @param child The child individual to be mutated.
+     * @implNote The method randomly chooses two distinct positions in the child and swaps the orders at those positions.
+     */
     private static void mutate(ArrayList<Order> child) {
         Random random = new Random();
 
@@ -248,13 +363,22 @@ public class SamuelAlgorithm {
         child.set(position2, order1);
     }
 
+    /**
+     * Finds the best individual with the minimum total delivery time in the given population.
+     *
+     * @param population The population of individuals from which to find the best individual.
+     * @return An ArrayList representing the best individual with the least total delivery time.
+     * @implNote The method iterates through the population and selects the individual with the minimum total delivery time.
+     * The result is the combination of orders with the least total delivery time.
+     * @see Order#totalDeliveryTime(ArrayList)
+     */
     private static ArrayList<Order> findBestIndividual(ArrayList<ArrayList<Order>> population) {
         double minTime = Integer.MAX_VALUE;
         ArrayList<Order> minArray = new ArrayList<>();
-        for (int i = 0; i< population.size(); i++) {
-            if (Order.totalDeliveryTime(population.get(i))<minTime) {
-                minTime = Order.totalDeliveryTime(population.get(i));
-                minArray = population.get(i);
+        for (ArrayList<Order> orders : population) {
+            if (Order.totalDeliveryTime(orders) < minTime) {
+                minTime = Order.totalDeliveryTime(orders);
+                minArray = orders;
             }
         }
         return minArray;
