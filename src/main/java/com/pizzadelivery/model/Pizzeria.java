@@ -36,6 +36,8 @@ public class Pizzeria {
     /**
      * Runs the Pizzeria's main process.
      * Continuously processes orders while there are orders in the queue.
+     * In general, we use an infinite loop to process orders, but for testing purposes, we stop after a certain number of iterations.
+     * This method is synchronized to handle concurrent modifications to the orders list.
      */
     public void run() {
         // Loop to process orders
