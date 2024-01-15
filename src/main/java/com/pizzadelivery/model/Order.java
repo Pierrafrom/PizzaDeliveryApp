@@ -39,6 +39,17 @@ public class Order implements Serializable {
     }
 
     /**
+     * Calculates the delivery distance between two orders based on their locations.
+     *
+     * @param order1 The first order.
+     * @param order2 The second order.
+     * @return The calculated delivery distance in units corresponding to GPS coordinates.
+     */
+    public static double calculateDeliveryDistance(Order order1, Order order2) {
+        return order1.location().calculateDistance(order2.location());
+    }
+
+    /**
      * Calculates the number of orders eligible for a discount based on their delivery times.
      *
      * @param orders The list of orders to analyze.

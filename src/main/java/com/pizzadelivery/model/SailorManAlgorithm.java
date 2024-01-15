@@ -16,6 +16,9 @@ public class SailorManAlgorithm {
     // Methods
 
     public static ArrayList<Order> selectAlgorithm(ArrayList<Order> orders, Order orderToTake) {
+        if (!orders.contains(orderToTake)) {
+            throw new IllegalArgumentException("Order to take is not in the list");
+        }
         Order mandatoryOrder = orders.remove(orders.indexOf(orderToTake));
         // Selection of the algorithm type based on the number of elements in the list
         AlgorithmType algorithmType;
@@ -36,6 +39,7 @@ public class SailorManAlgorithm {
         //ArrayList<Order> comb3 = new ArrayList<>();
         switch (algorithmType) {
             case BRUTE_FORCE -> {
+                orders.add(mandatoryOrder); // in this case we need to add the mandatory order because our bruteforce algorithm needs it
                 System.out.println("Brute force");
                 comb1 = SamuelAlgorithm.bruteForceDiscount(new ArrayList<>(orders));
                 comb2 = PierreAlgorithm.bruteForceTime(new ArrayList<>(orders));
@@ -78,6 +82,13 @@ public class SailorManAlgorithm {
         if ((grade1 == maxGrade && grade2 == maxGrade) || (grade3 == maxGrade && grade1 == maxGrade) || (grade2 == maxGrade && grade3 == maxGrade)) {
             //maxComb = getPriorityComb(comb1, comb2, comb3);
             maxComb = getPriorityComb(comb1, comb2);
+            if (maxComb == comb1) {
+                System.out.println("we take Samuel's algorithm, its grade is: " + grade1);
+            } else if (maxComb == comb2) {
+                System.out.println("we take Pierre's algorithm, its grade is: " + grade2);
+            } /*else {
+                System.out.println("we take Remi's algorithm, its grade is: " + grade3);
+            } */
         } else if (maxGrade == grade1) {
             maxComb = comb1;
             System.out.println("we take Samuel's algorithm, its grade is: " + grade1);

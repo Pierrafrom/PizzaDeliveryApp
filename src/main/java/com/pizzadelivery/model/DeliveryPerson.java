@@ -25,7 +25,8 @@ public class DeliveryPerson {
                 System.out.println("DeliveryPerson " + id + " is delivering orders " + ordersIds + "\n");
                 // Simuler le temps de trajet et de livraison pour chaque commande
                 long deliveryTime = (long) Order.totalDeliveryTime(ordersToDeliver);
-                Thread.sleep(deliveryTime * 1000); // Convertir en millisecondes
+                // deliveryTime est en minutes , donc le temps passe tres vite pour simplifier les tests
+                Thread.sleep(deliveryTime * 1000);
             } catch (InterruptedException e) {
                 Logger logger = Logger.getLogger(DeliveryPerson.class.getName());
                 logger.warning(e.getMessage());
