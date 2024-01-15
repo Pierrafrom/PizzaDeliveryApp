@@ -478,7 +478,6 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,748590, longitude=2,
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,677114, longitude=2,060755}:25.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,755022, longitude=2,142428}:12.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,638732, longitude=2,112829}:15.0
-ngitude=2,090961}|GPS{latitude=48,741207, longitude=2,111275}:6.0
 GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,686458, longitude=2,210024}:7.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,667032, longitude=2,034345}:9.0
 GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,748998, longitude=2,141716}:12.0
@@ -773,7 +772,6 @@ GPS{latitude=48,711729, longitude=2,165678}|GPS{latitude=48,764235, longitude=2,
 GPS{latitude=48,783909, longitude=2,197229}|GPS{latitude=48,761326, longitude=2,182610}:8.0
 GPS{latitude=48,753426, longitude=2,004750}|GPS{latitude=48,766400, longitude=2,090961}:18.0
 GPS{latitude=48,761326, longitude=2,182610}|GPS{latitude=48,685079, longitude=2,030520}:20.0
-ongitude=2,144803}:14.0
 GPS{latitude=48,694435, longitude=2,120320}|GPS{latitude=48,790403, longitude=2,154373}:17.0
 GPS{latitude=48,797820, longitude=2,001442}|GPS{latitude=48,673010, longitude=2,090216}:24.0
 GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,769134, longitude=2,054012}:18.0
@@ -798,7 +796,6 @@ GPS{latitude=48,766400, longitude=2,090961}|GPS{latitude=48,685079, longitude=2,
 GPS{latitude=48,685079, longitude=2,030520}|GPS{latitude=48,677114, longitude=2,060755}:4.0
 GPS{latitude=48,694875, longitude=2,208381}|GPS{latitude=48,741207, longitude=2,111275}:12.0
 GPS{latitude=48,700724, longitude=2,179650}|GPS{latitude=48,677114, longitude=2,060755}:12.0
-de=2,037003}:18.0
 GPS{latitude=48,705382, longitude=2,107241}|GPS{latitude=48,681144, longitude=1,995977}:10.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,641872, longitude=2,215254}:11.0
 GPS{latitude=48,716121, longitude=2,171620}|GPS{latitude=48,647051, longitude=2,037003}:19.0
