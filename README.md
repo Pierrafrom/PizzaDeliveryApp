@@ -1,4 +1,15 @@
 # Pizza Delivery App
+
+[![Java](https://img.shields.io/badge/Java-Algorithms-ED8B00?logo=openjdk&logoColor=white)](pom.xml)
+
+The delivery-optimization piece of a 3-app pizzeria system: customers order
+through [PizzaHome](https://github.com/Pierrafrom/PizzaHome), pizzaiolos
+prepare orders in
+[PizzaMakerApp](https://github.com/Pierrafrom/PizzaMakerApp), and this app
+decides which delivery person takes which orders and in what order. All
+three share the same database,
+[PizzeriaDB](https://github.com/Pierrafrom/PizzeriaDB).
+
 Made and thought by <a href="https://github.com/Pierrafrom" target="_blank">Pierre Fromont Boissel</a>, <a href="https://github.com/Samuelito78" target="_blank">Samuel Boix-Segura</a> and <a href="https://github.com/Gayar78" target="_blank">Rémi Thibault</a> . <br>
 
 ## Overview
